@@ -26,7 +26,7 @@ typedef struct	flag_s
 	int	(*func)(char **, int, info_t *);
 }		flag_t;
 
-int	check_is_number(char *);
+int	flag_cmd(char **, int, int *);
 int	fill_info(int, char **, info_t *);
 int	my_perror(char *, int);
 int	flag_p(char **, int, info_t *);
