@@ -8,6 +8,7 @@
 #ifndef SERVER_H_
 # define SERVER_H_
 
+# define MISS_FLAG	"Missing some flags, please use -help\n"
 # define FLAG_SIZE	6 
 
 typedef struct	info_s

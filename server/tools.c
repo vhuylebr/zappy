@@ -28,6 +28,6 @@ int	flag_cmd(char **av, int i, int *var)
 
 int	my_perror(char *str, int ret)
 {
-	dprintf(2, "%s\n", str);
+	dprintf(2, "%s", str);
 	return (ret);
 }
