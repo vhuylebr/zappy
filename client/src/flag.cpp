@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "client.h"
+#include "client.hpp"
 
 void	flag_p(char *str, client_info_t *info)
 {

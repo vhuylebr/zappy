@@ -8,20 +8,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "client.h"
+#include "client.hpp"
 
 flag_t	flag_table[FLAG_SIZE] =
 {
-	{"-p", &flag_p},
-	{"-n", &flag_n},
-	{"-h", &flag_h}
+	{(char *)"-p", &flag_p},
+	{(char *)"-n", &flag_n},
+	{(char *)"-h", &flag_h}
 };
 
 static void	init_value(client_info_t *info)
 {
 	info->port = -1;
 	info->name = NULL;
-	info->machine = "localhost";
+	info->machine = (char *)"localhost";
 }
 
 int	fill_info(int ac, char **av, client_info_t *info)

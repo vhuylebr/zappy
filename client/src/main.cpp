@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "client.h"
+#include "client.hpp"
 
 static int	display_help(void)
 {
@@ -29,7 +29,7 @@ static int	display_help(void)
 
 int	main(int ac, char **av)
 {
-	client_info_t	*info = malloc(sizeof(client_info_t));
+	client_info_t	*info = (client_info_t *)malloc(sizeof(client_info_t));
 
 	if (ac > 1 && !strcmp(av[1], "-help"))
 		return (display_help());	
