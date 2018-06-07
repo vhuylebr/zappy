@@ -14,7 +14,10 @@ SRC1	= 	server/main.c 		\
 		server/tools.c		\
 		server/flag.c
 
-SRC2	=	ai/main.c
+SRC2	=	client/main.c		\
+		client/fill_info.c	\
+		client/flag.c		\
+		server/tools.c
 
 NAME1	= zappy_server
 

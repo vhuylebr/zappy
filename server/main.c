@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include "server.h"
 
-static int	display_help()
+static int	display_help(void)
 {
 	int	fd = open("server/help.txt", O_RDONLY);
 	char	buff[4096];
