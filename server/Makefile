@@ -5,7 +5,7 @@
 ## server's makefile
 ##
 
-CC	=	gcc
+CC	=	gcc -g3
 
 RM	=	rm -rf
 
@@ -18,7 +18,10 @@ SRCS	=	src/main.c		\
 		src/flag.c		\
 		src/tools.c		\
 		src/handle_clients.c	\
-		src/server_init.c
+		src/server_init.c	\
+		src/get_next_line.c	\
+		src/get_next_line2.c	\
+		src/wordtab.c
 
 OBJS	=	$(SRCS:.c=.o)
 

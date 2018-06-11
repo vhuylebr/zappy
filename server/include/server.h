@@ -119,4 +119,10 @@ int		handle_clients(info_t *info);
 
 int		init_serveur(int port, server_t *server);
 
+/*
+** word_tab.c
+*/
+
+char	**my_str_to_wordtab(char *str, char c);
+
 #endif /* !SERVER_H_ */
