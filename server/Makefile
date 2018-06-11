@@ -16,7 +16,9 @@ NAME	=	../zappy_server
 SRCS	=	src/main.c		\
 		src/fill_info.c		\
 		src/flag.c		\
-		src/tools.c
+		src/tools.c		\
+		src/handle_clients.c	\
+		src/server_init.c
 
 OBJS	=	$(SRCS:.c=.o)
 

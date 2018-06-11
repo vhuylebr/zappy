@@ -24,8 +24,8 @@ typedef struct	flag_s
 	void	(*func)(char *, client_info_t *);
 }		flag_t;
 
-int	fill_info(int, char **, client_info_t *);
-int	my_perror(const char *, int);
+int		fill_info(int, char **, client_info_t *);
+int		my_perror(std::string, int);
 void	flag_p(char *, client_info_t *);
 void	flag_n(char *, client_info_t *);
 void	flag_h(char *, client_info_t *);
