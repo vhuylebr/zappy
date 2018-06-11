@@ -21,7 +21,8 @@ SRCS	=	src/main.c		\
 		src/server_init.c	\
 		src/get_next_line.c	\
 		src/get_next_line2.c	\
-		src/wordtab.c
+		src/wordtab.c	\
+		src/handle_commands.c
 
 OBJS	=	$(SRCS:.c=.o)
 

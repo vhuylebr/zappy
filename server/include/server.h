@@ -124,5 +124,12 @@ int		init_serveur(int port, server_t *server);
 */
 
 char	**my_str_to_wordtab(char *str, char c);
+void	free_tab(char **tab);
+
+/*
+** handle_commands.c
+*/
+
+int		check_function(info_t *info, client_t *client, char **cmds);
 
 #endif /* !SERVER_H_ */

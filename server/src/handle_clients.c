@@ -32,13 +32,13 @@ static void add_client(info_t *info, int fd)
 
 void	del_elem_from_list(info_t *info, client_t *client)
 {
-	write(1, "delete\n", 7);
 	close(client->fd);
 	if (info->clients == client) {
 		info->clients = client->next;
 	} else {
 		client->prev->next = client->next;
 	}
+	free(client);
 }
 
 static int	handle_client(info_t *info, client_t *client)
@@ -50,13 +50,12 @@ static int	handle_client(info_t *info, client_t *client)
 		del_elem_from_list(info, client);
 		return (0);
 	}
-	write(1, buff, strlen(buff));
-	write(1, "\n", 1);
 	cmds = my_str_to_wordtab(buff, ' ');
 	if (cmds == NULL || !cmds[0])
 		return (-1);
-	return (0);
-	// return (check_function(fd, cli, cmds, chann));
+	check_function(info, client, cmds);
+	free_tab(cmds);
+	return(0);
 }
 
 void	get_client(info_t *info)
@@ -64,7 +63,6 @@ void	get_client(info_t *info)
 	int client_fd = accept(info->server.fd,
 		(struct sockaddr *)&info->server.s_in_client,
 			&info->server.s_in_size);
-	write(1, "getClient\n", 10);
 	if (client_fd != -1)
 			add_client(info,
 				client_fd);
@@ -74,13 +72,13 @@ void	get_client(info_t *info)
 
 static void	launch_client(info_t *info)
 {
-	if (FD_ISSET(3, &info->readfds))
-		get_client(info);
 	for (client_t *tmp = info->clients; tmp;
 		tmp = tmp->next) {
 		if (FD_ISSET(tmp->fd, &info->readfds))
 			handle_client(info, tmp);
 	}
+	if (FD_ISSET(3, &info->readfds))
+		get_client(info);
 }
 
 static int	get_max_fd(client_t *clients)
@@ -105,10 +103,11 @@ int handle_clients(info_t *info)
 	FD_SET(3, &info->readfds);
 	for (client_t *tmp = info->clients;
 		tmp; tmp = tmp->next)
-		FD_SET(tmp->fd, &info->readfds);
-	if (select(get_max_fd(info->clients),
+			FD_SET(tmp->fd, &info->readfds);
+	int toto = get_max_fd(info->clients);
+	if (select(toto,
 		&info->readfds, NULL, NULL, NULL) == -1) {
-			printf("error\n");
+			perror("");
 			exit(84);
 		}
 	else
