@@ -9,13 +9,21 @@
 # define SERVER_H_
 
 # define MISS_FLAG	"Missing some flags, please use -help\n"
-# define FLAG_SIZE	6 
+# define FLAG_SIZE	6
+# define FOOD		0
+# define LINEMATE	1
+# define DERAUMERE	2
+# define SIBUR		3
+# define MENDIANE	4
+# define PHIRAS		5
+# define THYSTAME	6
 
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <netdb.h>
 # include <time.h>
+# include <stdlib.h>
 
 typedef struct	server_s
 {
@@ -25,12 +33,6 @@ typedef struct	server_s
 	struct sockaddr_in	s_in_client;
 	socklen_t			s_in_size;
 }				server_t;
-
-typedef	struct inventory_s
-{
-	int			ressources[6];
-	int			nb_food;
-}				inventory_t;
 
 typedef struct	player_s
 {
@@ -49,7 +51,7 @@ typedef struct		client_s
 	char			buf_idx;
 	char			*buff[10];
 	player_t		player;
-	inventory_t		inventory;
+	int				ressources[7];
 	struct client_s	*next;
 	struct client_s	*prev;
 }					client_t;
@@ -58,7 +60,7 @@ typedef struct		tile_s
 {
 	int				x;
 	int				y;
-	inventory_t		inventory;
+	int				ressources[7];
 	struct tile_s	*up;
 	struct tile_s	*down;
 	struct tile_s	*right;
@@ -95,6 +97,8 @@ typedef struct	flag_s
 	int	(*func)(char **, int, info_t *);
 }		flag_t;
 
+int select(int, fd_set *, fd_set *,
+			fd_set *, struct timeval *);
 int	flag_cmd(char **, int, int *);
 int	fill_info(int, char **, info_t *);
 int	my_perror(char *, int);

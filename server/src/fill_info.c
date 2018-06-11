@@ -22,21 +22,34 @@ flag_t	flag_table[FLAG_SIZE] =
 
 int	flag_n(char **av, int i, info_t *info)
 {
-	char	*tmp = "Ceci est temporaire pour un test\n";
-	(void)av;(void)i;(void)info;
-	info->name = &tmp;
-        for (i = i + 1; av[i] && av[i][0] != '-'; i++);
+	int		s;
+
+    for (s = 1; av[s + i] && av[s + i][0] != '-'; s++) {
+		for (int tmp = i + 1; av[tmp] && av[tmp][0] != '-'; tmp++) {
+			if (!strcmp(av[s + i], av[tmp]) && s + i != tmp)
+				return (-1);
+		}
+	}
+	info->name = malloc(sizeof(char *) * (s + 1));
+	if (info->name == NULL)
+		return (-1);
+	s = 0;
+	for (i = i + 1; av[i] && av[i][0] != '-'; i++) {
+		info->name[s] = av[i];
+		s += 1;
+	}
+	info->name[s] = NULL;
 	return (i - 1);
 }
 
 static void	init_value(info_t *info)
 {
-	info->port = -1;
-	info->width = -1;
-	info->height = -1;
-	info->nb_cli = -1;
+	info->port = 4242;
+	info->width = 50;
+	info->height = 50;
+	info->nb_cli = 4;
 	info->name = NULL;
-	info->freq = -1;
+	info->freq = 100;
 }
 
 int	fill_info(int ac, char **av, info_t *info)
@@ -47,8 +60,10 @@ int	fill_info(int ac, char **av, info_t *info)
 	for (int i = 1; i < ac; i++) {
 		stock = i;
 		for (int s = 0; s < FLAG_SIZE; s++) {
-			if (!strcmp(flag_table[s].flag, av[i]))
+			if (!strcmp(flag_table[s].flag, av[i])) {
 				i = flag_table[s].func(av, i, info);
+				break ;
+			}
 		}
 		if (stock == i)
 			return (my_perror("Invalid flags\n", 84));

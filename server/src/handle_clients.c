@@ -49,6 +49,10 @@ static int	get_max_fd(client_t *clients)
 	return (stock + 1);
 }
 
+int select(int nfds, fd_set *readfds, fd_set *writefds,
+           fd_set *exceptfds, struct timeval *timeout);
+
+
 int handle_clients(info_t *info)
 {
 	client_t	*tmp;
