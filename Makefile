@@ -9,9 +9,11 @@ all:	zappy_server zappy_ai
 
 zappy_server:
 		make -C server/
+		mv server/zappy_server .
 
 zappy_ai:
 		make -C client/
+		mv client/zappy_client .
 
 clean:
 		make clean -C server/

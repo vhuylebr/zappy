@@ -11,7 +11,7 @@ RM	=	rm -rf
 
 CFLAGS	=	-Wall -Wextra -Werror -I./include/
 
-NAME	=	../zappy_server
+NAME	=	zappy_server
 
 SRCS	=	src/main.c		\
 		src/fill_info.c		\

@@ -14,7 +14,7 @@ SRC	=	src/main.cpp		\
 		src/flag.cpp		\
 		src/tools.cpp
 
-NAME	= ../zappy_ai
+NAME	= zappy_ai
 
 CXXFLAGS	= -I./include -Wall -Wextra -Werror
 
