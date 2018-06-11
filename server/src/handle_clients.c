@@ -34,11 +34,11 @@ void	del_elem_from_list(info_t *info, client_t *client)
 {
 	write(1, "delete\n", 7);
 	close(client->fd);
-	if (info->clients == client)
+	if (info->clients == client) {
 		info->clients = client->next;
-	else
+	} else {
 		client->prev->next = client->next;
-	free(client);
+	}
 }
 
 static int	handle_client(info_t *info, client_t *client)
@@ -76,12 +76,11 @@ static void	launch_client(info_t *info)
 {
 	if (FD_ISSET(3, &info->readfds))
 		get_client(info);
-	if (info->clients)
-		for (client_t *tmp = info->clients; tmp;
-			tmp = tmp->next) {
-			if (FD_ISSET(tmp->fd, &info->readfds))
-				handle_client(info, tmp);
-		}
+	for (client_t *tmp = info->clients; tmp;
+		tmp = tmp->next) {
+		if (FD_ISSET(tmp->fd, &info->readfds))
+			handle_client(info, tmp);
+	}
 }
 
 static int	get_max_fd(client_t *clients)
