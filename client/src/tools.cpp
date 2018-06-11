@@ -5,10 +5,11 @@
 // client's tool
 //
 
-#include <stdio.h>
+#include <string>
+#include <iostream>
 
-int	my_perror(const char *str, int ret)
+int	my_perror(std::string str, int ret)
 {
-	dprintf(2, str);
+	std::cerr << str << std::endl;
 	return (ret);
 }
