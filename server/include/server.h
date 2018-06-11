@@ -40,6 +40,7 @@ typedef struct	player_s
 	int 		hp;
 	char		*team;
 	time_t		action;
+	time_t		next_eat;
 }				player_t;
 
 typedef struct		client_s

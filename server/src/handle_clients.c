@@ -9,15 +9,30 @@
 #include <stdlib.h>
 #include "server.h"
 
+static void add_client(info_t *info, int fd)
+{
+	client_t *tmp = malloc(sizeof(client_t));
+
+	if (info->clients == NULL) {
+		info->clients = tmp;
+		info->clients->next = NULL;
+	} else {
+		tmp->next = info->clients;
+		info->clients = tmp;
+	}
+	info->clients->fd = fd;
+}
+
 void	get_client(info_t *info)
 {
-	info->client_fd = accept(info->server.fd,
+	int client_fd = accept(info->server.fd,
 		(struct sockaddr *)&info->server.s_in_client,
 			&info->server.s_in_size);
-	// if (info->client_fd != -1)
-	// 	info->clients_list =
-	// 		add_client(info->clients_list,
-	// 			info->client_fd);
+	if (client_fd != -1)
+			add_client(info,
+				client_fd);
+	else
+		exit(84);
 }
 
 static void	launch_client(info_t *info)
@@ -29,7 +44,7 @@ static void	launch_client(info_t *info)
 	for (tmp = info->clients; tmp;
 		tmp = tmp->next) {
 		if (FD_ISSET(tmp->fd, &info->readfds))
-			printf("isset");
+			printf("isset %i\n", tmp->fd);
 	}
 }
 
