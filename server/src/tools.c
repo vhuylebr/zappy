@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "server.h"
 
 static int	check_is_number(char *str)
 {
@@ -30,4 +31,20 @@ int	my_perror(char *str, int ret)
 {
 	dprintf(2, "%s", str);
 	return (ret);
+}
+
+int	get_max_fd(client_t *clients)
+{
+	client_t	*tmp;
+	int		stock = 0;
+
+	if (clients == NULL)
+		return (4);
+	for (tmp = clients; tmp; tmp = tmp->next) {
+		if (tmp->fd > stock)
+			stock = tmp->fd;
+	}
+	if (stock <= 3)
+		return (4);
+	return (stock + 1);
 }

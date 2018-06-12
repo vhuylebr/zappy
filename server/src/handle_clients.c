@@ -12,35 +12,6 @@
 #include "server.h"
 #include "get_next_line.h"
 
-static void add_client(info_t *info, int fd)
-{
-	client_t *tmp = malloc(sizeof(client_t));
-
-	if (info->clients == NULL) {
-		info->clients = tmp;
-		info->clients->next = NULL;
-		info->clients->prev = NULL;
-	} else {
-		info->clients->prev = tmp;
-		tmp->next = info->clients;
-		tmp->prev = NULL;
-		info->clients = tmp;
-	}
-	info->clients->fd = fd;
-}
-
-
-void	del_elem_from_list(info_t *info, client_t *client)
-{
-	close(client->fd);
-	if (info->clients == client) {
-		info->clients = client->next;
-	} else {
-		client->prev->next = client->next;
-	}
-	free(client);
-}
-
 static int	handle_client(info_t *info, client_t *client)
 {
 	char		**cmds = NULL;
@@ -79,22 +50,6 @@ static void	launch_client(info_t *info)
 	}
 	if (FD_ISSET(3, &info->readfds))
 		get_client(info);
-}
-
-static int	get_max_fd(client_t *clients)
-{
-	client_t	*tmp;
-	int		stock = 0;
-
-	if (clients == NULL)
-		return (4);
-	for (tmp = clients; tmp; tmp = tmp->next) {
-		if (tmp->fd > stock)
-			stock = tmp->fd;
-	}
-	if (stock <= 3)
-		return (4);
-	return (stock + 1);
 }
 
 int handle_clients(info_t *info)

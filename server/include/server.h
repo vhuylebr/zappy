@@ -132,4 +132,17 @@ void	free_tab(char **tab);
 
 int		check_function(info_t *info, client_t *client, char **cmds);
 
+/*
+** tools.c
+*/
+
+int	get_max_fd(client_t *clients);
+
+/*
+** handle_client_list.c
+*/
+
+void add_client(info_t *info, int fd);
+void	del_elem_from_list(info_t *info, client_t *client);
+
 #endif /* !SERVER_H_ */
