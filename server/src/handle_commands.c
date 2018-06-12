@@ -15,6 +15,7 @@ cmd_t       ia_cmd[IA_CMD_SIZE] =
     {"Right", &right},
     {"Left", &left},
     {"Look", &look},
+    {"Inventory", &inventory},
     {"Broadcast", &broadcast},
     {"Connect_nbr", &connect_nbr},
     {"Fork", &fork_player},

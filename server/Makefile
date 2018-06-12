@@ -23,7 +23,16 @@ SRCS	=	src/main.c		\
 		src/get_next_line2.c	\
 		src/wordtab.c	\
 		src/handle_commands.c	\
-		src/handle_client_list.c
+		src/handle_client_list.c	\
+		cmd/broadcast.c			\
+		cmd/eject.c				\
+		cmd/fork.c 				\
+		cmd/gui_cmd.c 			\
+		cmd/gui_cmd2.c 			\
+		cmd/incantation.c		\
+		cmd/look.c 				\
+		cmd/movement.c 			\
+		cmd/object.c
 
 OBJS	=	$(SRCS:.c=.o)
 

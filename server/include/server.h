@@ -17,7 +17,7 @@
 # define MENDIANE		4
 # define PHIRAS			5
 # define THYSTAME		6
-# define IA_CMD_SIZE	11
+# define IA_CMD_SIZE	12
 # define GUI_CMD_SIZE	9
 
 # include <sys/socket.h>
@@ -156,6 +156,7 @@ void	forward(info_t *, client_t *, char **);
 void	right(info_t *, client_t *, char **);
 void	left(info_t *, client_t *, char **);
 void	look(info_t *, client_t *, char **);
+void	inventory(info_t *, client_t *, char **);
 void	broadcast(info_t *, client_t *, char **);
 void	connect_nbr(info_t *, client_t *, char **);
 void	fork_player(info_t *, client_t *, char **);
