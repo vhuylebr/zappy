@@ -13,8 +13,8 @@
 struct		s_gnl
 {
 	char	*st_str;
-	int	size;
-	int	fd;
+	int		size;
+	int		fd;
 	char	*str;
 };
 
