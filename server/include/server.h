@@ -8,8 +8,17 @@
 #ifndef SERVER_H_
 # define SERVER_H_
 
-# define MISS_FLAG	"Missing some flags, please use -help\n"
-# define FLAG_SIZE	6 
+# define MISS_FLAG		"Missing some flags, please use -help\n"
+# define FLAG_SIZE		6
+# define FOOD 			0
+# define LINEMATE 		1
+# define DERAUMERE		2
+# define SIBUR			3
+# define MENDIANE		4
+# define PHIRAS			5
+# define THYSTAME		6
+# define IA_CMD_SIZE	11
+# define GUI_CMD_SIZE	9
 
 # include <sys/socket.h>
 # include <netinet/in.h>
@@ -25,12 +34,6 @@ typedef struct	server_s
 	struct sockaddr_in	s_in_client;
 	socklen_t			s_in_size;
 }				server_t;
-
-typedef	struct inventory_s
-{
-	int			ressources[6];
-	int			nb_food;
-}				inventory_t;
 
 typedef struct	player_s
 {
@@ -50,7 +53,7 @@ typedef struct		client_s
 	char			buf_idx;
 	char			*buff[10];
 	player_t		player;
-	inventory_t		inventory;
+	int				ressources[7];
 	struct client_s	*next;
 	struct client_s	*prev;
 }					client_t;
@@ -59,21 +62,13 @@ typedef struct		tile_s
 {
 	int				x;
 	int				y;
-	inventory_t		inventory;
+	int				ressources[7];
 	struct tile_s	*up;
 	struct tile_s	*down;
 	struct tile_s	*right;
 	struct tile_s	*left;
 	client_t		*clients;
 }					tile_t;
-
-typedef	struct	map_s
-{
-	tile_t		*first;
-	tile_t		*last;
-	int			width;
-	int			height;
-}				map_t;
 
 typedef struct	info_s
 {
@@ -82,11 +77,10 @@ typedef struct	info_s
 	int			height;
 	int			nb_cli;
 	int			freq;
-	int			client_fd;
 	char		**name;
 	fd_set		readfds;
 	client_t	*clients;
-	map_t		map;
+	tile_t		*map;
 	server_t	server;
 }				info_t;
 
@@ -94,7 +88,13 @@ typedef struct	flag_s
 {
 	char	*flag;
 	int	(*func)(char **, int, info_t *);
-}		flag_t;
+}				flag_t;
+
+typedef struct	cmd_s
+{
+	char	*cmd;
+	void	(*func)();
+}				cmd_t;
 
 int	flag_cmd(char **, int, int *);
 int	fill_info(int, char **, info_t *);
