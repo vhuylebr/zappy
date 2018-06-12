@@ -17,6 +17,7 @@ static int	handle_client(info_t *info, client_t *client)
 	char		**cmds = NULL;
 	char		*buff = NULL;
 
+	printf("handle client");
 	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
 		del_elem_from_list(info, client);
 		return (0);

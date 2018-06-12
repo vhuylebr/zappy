@@ -98,6 +98,7 @@ typedef struct	cmd_s
 	void	(*func)(info_t *, client_t *, char **);
 }				cmd_t;
 
+tile_t	*get_tile(int, int, info_t *);
 void	print_ressources(int[7], int);
 int	flag_cmd(char **, int, int *);
 int	fill_info(int, char **, info_t *);

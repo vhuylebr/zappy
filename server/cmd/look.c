@@ -8,23 +8,89 @@
 #include <stdio.h>
 #include "server.h"
 
-void    look(info_t *info, client_t *client, char **cmd)
+static void oriented_north(info_t *info, client_t *client, int level)
 {
-    (void)info;(void)client;(void)cmd;
+    tile_t  *pos = get_tile(client->player.posx, client->player.posy, info);
+    tile_t  *tmp;
+
+    for (int i = 1; i <= level; i++) {
+        tmp = pos;
+        for (int s = 0; s < i; s++) {
+            tmp = tmp->up;
+            tmp = tmp->left;
+        }
+        for (int s = 0; s < (level * 2 + 1); s++) {
+            //printf_info
+            tmp = tmp->right;
+        }
+    }
 }
 
-void    inventory(info_t *info, client_t *client, char **cmd)
+static void oriented_east(info_t *info, client_t *client, int level)
 {
-    char    *item[7] = {"food", "linemate", "deraumere",
-                        "sibur", "mendiane", "phiras", "thystame"};
+    tile_t  *pos = get_tile(client->player.posx, client->player.posy, info);
+    tile_t  *tmp;
 
-    (void)info;
-    (void)cmd;
-    dprintf(client->fd, "[");
-    for (int i = 0; i < 7; i++) {
-        dprintf(client->fd, "%s %d", item[i], client->ressources[i]);
-        if (i != 6)
-            dprintf(client->fd, ", ");
+    for (int i = 1; i <= level; i++) {
+        tmp = pos;
+        for (int s = 0; s < i; s++) {
+            tmp = tmp->right;
+            tmp = tmp->up;
+        }
+        for (int s = 0; s < (level * 2 + 1); s++) {
+            //printf_info
+            tmp = tmp->down;
+        }
     }
-    dprintf(client->fd, "]\n");
+}
+
+static void oriented_south(info_t *info, client_t *client, int level)
+{
+    tile_t  *pos = get_tile(client->player.posx, client->player.posy, info);
+    tile_t  *tmp;
+
+        for (int i = 1; i <= level; i++) {
+            tmp = pos;
+            for (int s = 0; s < i; s++) {
+                tmp = tmp->down;
+                tmp = tmp->right;
+            }
+            for (int s = 0; s < (level * 2 + 1); s++) {
+                //printf_info
+                tmp = tmp->left;
+            }
+        }
+}
+
+static void oriented_west(info_t *info, client_t *client, int level)
+{
+    tile_t  *pos = get_tile(client->player.posx, client->player.posy, info);
+    tile_t  *tmp;
+
+    for (int i = 1; i <= level; i++) {
+        tmp = pos;
+        for (int s = 0; s < i; s++) {
+            tmp = tmp->left;
+            tmp = tmp->down;
+        }
+        for (int s = 0; s < (level * 2 + 1); s++) {
+            //printf_info
+            tmp = tmp->up;
+        }
+    }
+}
+
+void    look(info_t *info, client_t *client, char **cmd)
+{
+    int level = client->player.level;
+
+    (void)cmd;
+    if (client->player.orientation == 1)
+        oriented_north(info, client, level);
+    else if (client->player.orientation == 2)
+        oriented_east(info, client, level);
+    else if (client->player.orientation == 3)
+        oriented_south(info, client, level);
+    else
+        oriented_west(info, client, level);
 }
