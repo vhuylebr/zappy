@@ -17,13 +17,9 @@ static void init_client(info_t *info)
 	info->clients->player.posx = rand() % info->width;
 	info->clients->player.posy = rand() % info->height;
 	info->clients->player.orientation = rand() % 4 + 1;
-	info->clients->ressources[FOOD] = 10;
-	info->clients->ressources[LINEMATE] = 0;
-	info->clients->ressources[DERAUMERE] = 0;
-	info->clients->ressources[SIBUR] = 0;
-	info->clients->ressources[MENDIANE] = 0;
-	info->clients->ressources[PHIRAS] = 0;
-	info->clients->ressources[THYSTAME] = 0;
+	info->clients->player.team = NULL;
+	for (int i = 0; i < 7; i++)
+		info->clients->ressources[i] = 0;
 	info->id++;
 }
 
