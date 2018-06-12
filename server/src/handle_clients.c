@@ -39,11 +39,11 @@ static void	team_name(info_t *info, client_t *client, char *name)
 
 static int	handle_client(info_t *info, client_t *client)
 {
-	char		**cmds = NULL;
-	char		*buff = NULL;
+	char	**cmds = NULL;
+	char	*buff = NULL;
 
 	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
-		del_elem_from_list(info, client);
+		client->is_connected = false;
 		return (0);
 	}
 	cmds = my_str_to_wordtab(buff, ' ');

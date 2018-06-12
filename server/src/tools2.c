@@ -5,6 +5,7 @@
 ** tools2
 */
 
+#include <string.h>
 #include "server.h"
 
 int get_cli_num(client_t *cli, char *team, int nb_max)
