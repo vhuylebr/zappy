@@ -39,6 +39,7 @@ int	main(int ac, char **av)
 	info_t *info = malloc(sizeof(info_t));
 
 	info->clients = NULL;
+	info->id = 0;
 	if (ac > 1 && !strcmp(av[1], "-help"))
 		return (display_help());
 	else if (info == NULL || fill_info(ac, av, info) == 84)
