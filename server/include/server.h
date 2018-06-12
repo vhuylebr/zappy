@@ -27,6 +27,13 @@
 # include <time.h>
 # include <stdbool.h>
 
+typedef enum {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+} orientation;
+
 typedef struct	server_s
 {
 	struct	protoent	*pe;
@@ -39,11 +46,11 @@ typedef struct	server_s
 typedef struct	player_s
 {
 	int			level;
-	int			orientation;
 	int			posx;
 	int			posy;
 	int 		hp;
 	char		*team;
+	orientation	orientation;
 	time_t		action;
 	time_t		next_eat;
 }				player_t;
@@ -77,6 +84,7 @@ typedef struct	info_s
 	int			port;
 	int			width;
 	int			height;
+	int			id;
 	int			nb_cli;
 	int			freq;
 	char		**name;
