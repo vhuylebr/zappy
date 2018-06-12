@@ -35,10 +35,10 @@ void	get_client(info_t *info)
 		(struct sockaddr *)&info->server.s_in_client,
 			&info->server.s_in_size);
 	if (client_fd != -1)
-			add_client(info,
-				client_fd);
+			add_client(info, client_fd);
 	else
 		exit(84);
+	dprintf(client_fd, "Welcome\n");
 }
 
 static void	launch_client(info_t *info)
