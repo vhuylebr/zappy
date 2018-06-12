@@ -28,6 +28,7 @@
 # include <stdbool.h>
 
 typedef enum {
+	NONE,
 	UP,
 	RIGHT,
 	DOWN,

@@ -16,7 +16,7 @@ static void init_client(info_t *info)
 	info->clients->player.level = 1;
 	info->clients->player.posx = rand() % info->width;
 	info->clients->player.posy = rand() % info->height;
-	info->clients->player.orientation = rand() % 4;
+	info->clients->player.orientation = rand() % 4 + 1;
 	info->clients->ressources[FOOD] = 10;
 	info->clients->ressources[LINEMATE] = 0;
 	info->clients->ressources[DERAUMERE] = 0;
