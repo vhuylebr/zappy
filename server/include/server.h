@@ -145,4 +145,10 @@ int	get_max_fd(client_t *clients);
 void add_client(info_t *info, int fd);
 void	del_elem_from_list(info_t *info, client_t *client);
 
+/*
+** init_map.c
+*/
+
+void	init_map(info_t *info);
+
 #endif /* !SERVER_H_ */
