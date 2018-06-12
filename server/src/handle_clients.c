@@ -59,8 +59,7 @@ int handle_clients(info_t *info)
 	for (client_t *tmp = info->clients;
 		tmp; tmp = tmp->next)
 			FD_SET(tmp->fd, &info->readfds);
-	int toto = get_max_fd(info->clients);
-	if (select(toto,
+	if (select(get_max_fd(info->clients),
 		&info->readfds, NULL, NULL, NULL) == -1) {
 			perror("");
 			exit(84);
