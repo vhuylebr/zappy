@@ -48,7 +48,6 @@ int	main(int ac, char **av)
 	else if (info->nb_cli == -1 || info->name == NULL || info->freq == -1)
 		return (my_perror(MISS_FLAG, 84));
 	init_serveur(info->port, &info->server);
-	printf("port = %d\nwidth = %d\nheight = %d\ncli = %d\nfreq = %d\nserver %d\n", info->port, info->width, info->height, info->nb_cli, info->freq, info->server.fd);
 	loop(info);
 	return (0);
 }

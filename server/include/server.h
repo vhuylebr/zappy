@@ -25,6 +25,7 @@
 # include <arpa/inet.h>
 # include <netdb.h>
 # include <time.h>
+# include <stdbool.h>
 
 typedef struct	server_s
 {
@@ -38,6 +39,7 @@ typedef struct	server_s
 typedef struct	player_s
 {
 	int			level;
+	int			orientation;
 	int			posx;
 	int			posy;
 	int 		hp;
@@ -53,6 +55,7 @@ typedef struct		client_s
 	char			buf_idx;
 	char			*buff[10];
 	player_t		player;
+	bool			is_gui;
 	int				ressources[7];
 	struct client_s	*next;
 	struct client_s	*prev;
@@ -67,7 +70,6 @@ typedef struct		tile_s
 	struct tile_s	*down;
 	struct tile_s	*right;
 	struct tile_s	*left;
-	client_t		*clients;
 }					tile_t;
 
 typedef struct	info_s
@@ -93,9 +95,10 @@ typedef struct	flag_s
 typedef struct	cmd_s
 {
 	char	*cmd;
-	void	(*func)();
+	void	(*func)(info_t *, client_t *, char **);
 }				cmd_t;
 
+void	print_ressources(int[7], int);
 int	flag_cmd(char **, int, int *);
 int	fill_info(int, char **, info_t *);
 int	my_perror(char *, int);
@@ -144,5 +147,35 @@ int	get_max_fd(client_t *clients);
 
 void add_client(info_t *info, int fd);
 void	del_elem_from_list(info_t *info, client_t *client);
+
+/*
+** IA cmd
+*/
+
+void	forward(info_t *, client_t *, char **);
+void	right(info_t *, client_t *, char **);
+void	left(info_t *, client_t *, char **);
+void	look(info_t *, client_t *, char **);
+void	broadcast(info_t *, client_t *, char **);
+void	connect_nbr(info_t *, client_t *, char **);
+void	fork_player(info_t *, client_t *, char **);
+void	eject(info_t *, client_t *, char **);
+void	take(info_t *, client_t *, char **);
+void	set(info_t *, client_t *, char **);
+void	incantation(info_t *, client_t *, char **);
+
+/*
+** GUI cmd
+*/
+
+void	msz(info_t *, client_t *, char **);
+void	bct(info_t *, client_t *, char **);
+void 	mct(info_t *, client_t *, char **);
+void	tna(info_t *, client_t *, char **);
+void	ppo(info_t *, client_t *, char **);
+void	plv(info_t *, client_t *, char **);
+void	pin(info_t *, client_t *, char **);
+void	sgt(info_t *, client_t *, char **);
+void	sst(info_t *, client_t *, char **);
 
 #endif /* !SERVER_H_ */
