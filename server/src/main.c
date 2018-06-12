@@ -43,9 +43,7 @@ int	main(int ac, char **av)
 		return (display_help());
 	else if (info == NULL || fill_info(ac, av, info) == 84)
 		return (84);
-	else if (info->port == -1 || info->width == -1 || info->height == -1)
-		return (my_perror(MISS_FLAG, 84));
-	else if (info->nb_cli == -1 || info->name == NULL || info->freq == -1)
+	else if (info->name == NULL)
 		return (my_perror(MISS_FLAG, 84));
 	init_serveur(info->port, &info->server);
 	init_map(info);

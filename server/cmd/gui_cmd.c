@@ -17,15 +17,9 @@ void    msz(info_t *info, client_t *client, char **cmd)
 
 void    bct(info_t *info, client_t *client, char **cmd)
 {
-    int     x = atoi(cmd[1]);
-    int     y = atoi(cmd[2]);
-    tile_t  *tmp = info->map;
+    tile_t  *tmp = get_tile(atoi(cmd[1]), atoi(cmd[2]), info);
 
-    for (int i = 0; i < x; i++)
-        tmp = tmp->right;
-    for (int i = 0; i < y; i++)
-        tmp = tmp->down;
-    dprintf(client->fd, "bct %d %d ", x, y);
+    dprintf(client->fd, "bct %s %s ", cmd[1], cmd[2]);
     print_ressources(tmp->ressources, client->fd);
     dprintf(client->fd, "\n");
 }
