@@ -38,17 +38,6 @@ cmd_t       gui_cmd[GUI_CMD_SIZE] =
     {"sst", &sst}
 };
 
-tile_t  *get_tile(int x, int y, info_t *info)
-{
-    tile_t  *tmp = info->map;
-
-    for (int i = 0; i < x; i++)
-        tmp = tmp->right;
-    for (int i = 0; i < y; i++)
-        tmp = tmp->down;
-    return (tmp);
-}
-
 static void gui_handling(info_t *info, client_t *client, char **cmd)
 {
     int find = 0;

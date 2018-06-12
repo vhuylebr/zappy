@@ -12,12 +12,36 @@
 #include "server.h"
 #include "get_next_line.h"
 
+static void	team_name(info_t *info, client_t *client, char *name)
+{
+	int	c_num;
+
+	if (!strcmp("GUI", name)) {
+		client->is_gui = true;
+		client->player.team = name;
+		client->player.posx = -1;
+		client->player.posx = -1;
+		return ;
+	}
+	for (int i = 0; info->name[i]; i++) {
+		if (!strcmp(info->name[i], name)) {
+			c_num = get_cli_num(info->clients, name, info->nb_cli);
+			if (c_num < 0)
+				break ;
+			client->player.team = name;
+			dprintf(client->fd, "%d\n%d %d\n", c_num - 1,
+			info->width, info->height);
+			return ;
+		}
+	}
+	dprintf(client->fd, "ko\n");
+}
+
 static int	handle_client(info_t *info, client_t *client)
 {
 	char		**cmds = NULL;
 	char		*buff = NULL;
 
-	printf("handle client");
 	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
 		del_elem_from_list(info, client);
 		return (0);
@@ -25,7 +49,10 @@ static int	handle_client(info_t *info, client_t *client)
 	cmds = my_str_to_wordtab(buff, ' ');
 	if (cmds == NULL || !cmds[0])
 		return (-1);
-	check_function(info, client, cmds);
+	if (client->player.team != NULL)
+		check_function(info, client, cmds);
+	else
+		team_name(info, client, cmds[0]);
 	free_tab(cmds);
 	return(0);
 }
