@@ -5,13 +5,15 @@
 ** tools2
 */
 
+#include <stdio.h>
 #include <string.h>
 #include "server.h"
 
 int get_cli_num(client_t *cli, char *team, int nb_max)
 {
     for (client_t *tmp = cli; tmp; tmp = tmp->next) {
-        if (!strcmp(tmp->player.team, team) && tmp->is_connected)
+        if (tmp->player.team && !strcmp(tmp->player.team, team)
+        && tmp->is_connected)
             nb_max -= 1;
     }
     return (nb_max);
