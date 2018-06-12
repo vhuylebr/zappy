@@ -65,6 +65,7 @@ typedef struct		client_s
 	player_t		player;
 	bool			is_gui;
 	int				ressources[7];
+	bool			is_connected;
 	struct client_s	*next;
 	struct client_s	*prev;
 }					client_t;
