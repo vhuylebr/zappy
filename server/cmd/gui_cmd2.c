@@ -22,6 +22,7 @@ void	plv(info_t *info, client_t *client, char **cmd)
 void	pin(info_t *info, client_t *client, char **cmd)
 {
 	client_t *tmp;
+	
 	(void)info;
 	for (tmp = client; tmp && tmp->id != atoi(cmd[1]); tmp = tmp->next);
 	if (!tmp) {

@@ -11,18 +11,22 @@
 
 static void init_client(info_t *info)
 {
+	int	posx = rand() % info->width;
+	int	posy = rand() % info->height;
+
 	info->clients->id = info->id;
 	info->clients->is_gui = false;
 	info->clients->is_set = false;
 	info->clients->is_connected = true;
 	info->clients->player.level = 1;
-	info->clients->player.posx = rand() % info->width;
-	info->clients->player.posy = rand() % info->height;
-	info->clients->player.orientation = rand() % 4 + 1;
+	info->clients->player.posx = 25;//posx;
+	info->clients->player.posy = 25;//posy;
+	info->clients->player.orientation = 1;//rand() % 4 + 1;
 	info->clients->player.team = NULL;
 	for (int i = 0; i < 7; i++)
 		info->clients->ressources[i] = 0;
 	info->clients->ressources[FOOD] = 10;
+	add_client_to_tile(get_tile(posx, posy, info), info->clients);
 	info->id++;
 }
 

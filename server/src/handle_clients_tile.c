@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "server.h"
 
-void add_client_tile(tile_t *tile, client_t *client)
+void add_client_to_tile(tile_t *tile, client_t *client)
 {
 	client_list_t	*client_list_node = malloc(sizeof(client_list_t));
 
@@ -22,7 +22,7 @@ void add_client_tile(tile_t *tile, client_t *client)
 	}
 }
 
-void	del_elem_from_list_tile(tile_t *tile, client_t *client)
+void	del_client_from_tile(tile_t *tile, client_t *client)
 {
 	client_list_t	*tmp = NULL;
 
@@ -33,4 +33,13 @@ void	del_elem_from_list_tile(tile_t *tile, client_t *client)
 			tmp = tmp->next);
 		tmp->next = tmp->next->next;
 	}
+}
+
+int	get_client_tile_size(tile_t *tile)
+{
+	int	count = 0;
+
+	for (client_t *tmp = tile->clients_list->client; tmp; tmp = tmp->next)
+		count += 1;
+	return (count);
 }

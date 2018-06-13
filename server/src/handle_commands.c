@@ -56,7 +56,7 @@ static void gui_handling(info_t *info, client_t *client, char **cmd)
 static void ia_handling(info_t *info, client_t *client, char **cmd)
 {
 	int find = 0;
-
+	
 	for (int i = 0; i < IA_CMD_SIZE; i++) {
 		if (!strcasecmp(ia_cmd[i].cmd, cmd[0])) {
 			ia_cmd[i].func(info, client, cmd);
