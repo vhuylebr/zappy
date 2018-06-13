@@ -175,6 +175,13 @@ void	display_inventory_tile(tile_t *tile, int fd);
 void	team_name(info_t *, client_t *, char *);
 
 /*
+** handle_clients_tile.c
+*/
+
+void add_client_tile(tile_t *tile, client_t *client);
+void	del_elem_from_list_tile(tile_t *tile, client_t *client);
+
+/*
 ** IA cmd
 */
 
