@@ -165,8 +165,9 @@ int	get_max_fd(client_t *clients);
 ** handle_client_list.c
 */
 
-void	add_client(info_t *info, int fd);
-void	del_elem_from_list(info_t *info, client_t *client);
+void	add_client(info_t *, int);
+void	del_elem_from_list(info_t *, client_t *);
+void	init_client(info_t *,client_t *);
 
 /*
 ** init_map.c

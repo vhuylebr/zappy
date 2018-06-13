@@ -9,20 +9,19 @@
 #include <unistd.h>
 #include "server.h"
 
-static void init_client(info_t *info)
+void init_client(info_t *info, client_t *client)
 {
-	info->clients->id = info->id;
-	info->clients->is_gui = false;
-	info->clients->is_set = false;
-	info->clients->is_connected = true;
-	info->clients->player.level = 1;
-	info->clients->player.posx = rand() % info->width;
-	info->clients->player.posy = rand() % info->height;
-	info->clients->player.orientation = rand() % 4 + 1;
-	info->clients->player.team = NULL;
+	client->id = info->id;
+	client->is_gui = false;
+	client->is_set = false;
+	client->is_connected = true;
+	client->player.level = 1;
+	client->player.posx = rand() % info->width;
+	client->player.posy = rand() % info->height;
+	client->player.orientation = rand() % 4 + 1;
 	for (int i = 0; i < 7; i++)
-		info->clients->ressources[i] = 0;
-	info->clients->ressources[FOOD] = 10;
+		client->ressources[i] = 0;
+	client->ressources[FOOD] = 10;
 	info->id++;
 }
 
@@ -41,7 +40,10 @@ void add_client(info_t *info, int fd)
 		info->clients = tmp;
 	}
 	info->clients->fd = fd;
-	init_client(info);
+	info->clients->is_connected = true;
+	info->clients->is_gui = false;
+	info->clients->is_set = false;
+	info->clients->player.team = NULL;
 }
 
 void	del_elem_from_list(info_t *info, client_t *client)
