@@ -13,6 +13,7 @@ static void init_client(info_t *info)
 {
 	info->clients->id = info->id;
 	info->clients->is_gui = false;
+	info->clients->is_set = false;
 	info->clients->is_connected = true;
 	info->clients->player.level = 1;
 	info->clients->player.posx = rand() % info->width;
@@ -21,6 +22,7 @@ static void init_client(info_t *info)
 	info->clients->player.team = NULL;
 	for (int i = 0; i < 7; i++)
 		info->clients->ressources[i] = 0;
+	info->clients->ressources[FOOD] = 10;
 	info->id++;
 }
 
@@ -44,7 +46,6 @@ void add_client(info_t *info, int fd)
 
 void	del_elem_from_list(info_t *info, client_t *client)
 {
-	close(client->fd);
 	if (info->clients == client) {
 		info->clients = client->next;
 	} else {

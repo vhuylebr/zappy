@@ -66,6 +66,7 @@ typedef struct		client_s
 	bool			is_gui;
 	int				ressources[7];
 	bool			is_connected;
+	bool			is_set;
 	struct client_s	*next;
 	struct client_s	*prev;
 }					client_t;
@@ -157,7 +158,7 @@ int	get_max_fd(client_t *clients);
 ** handle_client_list.c
 */
 
-void add_client(info_t *info, int fd);
+void	add_client(info_t *info, int fd);
 void	del_elem_from_list(info_t *info, client_t *client);
 
 /*
@@ -165,6 +166,12 @@ void	del_elem_from_list(info_t *info, client_t *client);
 */
 
 void	init_map(info_t *info);
+
+/*
+** handle_team.c
+*/
+
+void	team_name(info_t *, client_t *, char *);
 
 /*
 ** IA cmd
