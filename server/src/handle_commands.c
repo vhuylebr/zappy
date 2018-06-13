@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 #include "server.h"
 
@@ -68,7 +69,6 @@ static void ia_handling(info_t *info, client_t *client, char **cmd)
 
 int check_function(info_t *info, client_t *client, char **cmds)
 {
-	printf("je suis check function\n");
 	if (client->is_gui == true)
 		gui_handling(info, client, cmds);
 	else
