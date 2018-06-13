@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "server.h"
 
-void    plv(info_t *info, client_t *client, char **cmd)
+void	plv(info_t *info, client_t *client, char **cmd)
 {
 	int id = atoi(cmd[1]);
 
@@ -19,7 +19,7 @@ void    plv(info_t *info, client_t *client, char **cmd)
 	}
 }
 
-void    pin(info_t *info, client_t *client, char **cmd)
+void	pin(info_t *info, client_t *client, char **cmd)
 {
 	client_t *tmp;
 	(void)info;
@@ -33,12 +33,12 @@ void    pin(info_t *info, client_t *client, char **cmd)
 	print_ressources(tmp->ressources, client->fd);
 }
 
-void    sgt(info_t *info, client_t *client, char **cmd)
+void	sgt(info_t *info, client_t *client, char **cmd)
 {
-    (void)info;(void)client;(void)cmd;
+	(void)info;(void)client;(void)cmd;
 }
 
-void    sst(info_t *info, client_t *client, char **cmd)
+void	sst(info_t *info, client_t *client, char **cmd)
 {
-    (void)info;(void)client;(void)cmd;
+	(void)info;(void)client;(void)cmd;
 }
