@@ -35,6 +35,7 @@ static tile_t	*init_tile(int x, int y)
 	tile_t	*tile = malloc(sizeof(tile_t));
 	tile->x = x;
 	tile->y = y;
+	tile->clients_list = NULL;
 	tile->ressources[FOOD] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
 	tile->ressources[LINEMATE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
 	tile->ressources[DERAUMERE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;

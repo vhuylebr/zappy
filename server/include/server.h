@@ -71,6 +71,12 @@ typedef struct		client_s
 	struct client_s	*prev;
 }					client_t;
 
+typedef	struct				client_list_s
+{
+	client_t				*client;
+	struct client_list_s	*next;
+}							client_list_t;
+
 typedef struct		tile_s
 {
 	int				x;
@@ -80,6 +86,7 @@ typedef struct		tile_s
 	struct tile_s	*down;
 	struct tile_s	*right;
 	struct tile_s	*left;
+	client_list_t	*clients_list;
 }					tile_t;
 
 typedef struct	info_s
