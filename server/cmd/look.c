@@ -96,5 +96,5 @@ void    look(info_t *info, client_t *client, char **cmd)
 		oriented_south(info, client, level);
 	else
 		oriented_west(info, client, level);
-	dprintf(client->fd, "]\n");
+	dprintf(client->fd, " ]\n");
 }

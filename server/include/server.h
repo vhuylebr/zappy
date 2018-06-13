@@ -19,7 +19,7 @@
 # define THYSTAME		6
 # define IA_CMD_SIZE	12
 # define GUI_CMD_SIZE	9
-
+# define PROBA_OBJ		7
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>

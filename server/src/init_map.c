@@ -35,13 +35,13 @@ static tile_t	*init_tile(int x, int y)
 	tile_t	*tile = malloc(sizeof(tile_t));
 	tile->x = x;
 	tile->y = y;
-	tile->ressources[FOOD] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[LINEMATE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[DERAUMERE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[SIBUR] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[MENDIANE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[PHIRAS] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[THYSTAME] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[FOOD] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[LINEMATE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[DERAUMERE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[SIBUR] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[MENDIANE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[PHIRAS] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[THYSTAME] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
 	return (tile);
 }
 
