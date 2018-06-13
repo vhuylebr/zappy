@@ -46,6 +46,7 @@ int	main(int ac, char **av)
 		return (84);
 	else if (info->name == NULL)
 		return (my_perror(MISS_FLAG, 84));
+	srand(time(NULL));
 	init_serveur(info->port, &info->server);
 	init_map(info);
 	loop(info);

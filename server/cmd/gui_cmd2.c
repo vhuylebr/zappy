@@ -21,7 +21,15 @@ void    plv(info_t *info, client_t *client, char **cmd)
 
 void    pin(info_t *info, client_t *client, char **cmd)
 {
-    (void)info;(void)client;(void)cmd;
+    (void)info;
+    for (client_t *tmp = client; tmp && tmp->id != cmd[1]; tmp = tmp->next);
+    if (!tmp) {
+        dprintf(client->fd, "ko\n");
+        return ;
+    }
+    dprintf(client->fd, "pin %d %d %d ", tmp->id, tmp->player.posx,
+    tmp->player.posy);
+    print_ressources(tmp->ressources, client->fd);
 }
 
 void    sgt(info_t *info, client_t *client, char **cmd)

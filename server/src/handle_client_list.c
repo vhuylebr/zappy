@@ -14,7 +14,7 @@ static void init_client(info_t *info)
 	info->clients->id = info->id;
 	info->clients->is_gui = false;
 	info->clients->is_connected = true;
-	info->clients->player.level = 1;
+	info->clients->player.level = 3;
 	info->clients->player.posx = rand() % info->width;
 	info->clients->player.posy = rand() % info->height;
 	info->clients->player.orientation = rand() % 4 + 1;
