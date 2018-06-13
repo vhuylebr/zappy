@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "server.h"
 
-static void init_client(info_t *info)
+void init_client(info_t *info, client_t *client)
 {
 	int	posx = rand() % info->width;
 	int	posy = rand() % info->height;
@@ -45,7 +45,10 @@ void add_client(info_t *info, int fd)
 		info->clients = tmp;
 	}
 	info->clients->fd = fd;
-	init_client(info);
+	info->clients->is_connected = true;
+	info->clients->is_gui = false;
+	info->clients->is_set = false;
+	info->clients->player.team = NULL;
 }
 
 void	del_elem_from_list(info_t *info, client_t *client)
