@@ -13,6 +13,8 @@ void add_client_to_tile(tile_t *tile, client_t *client)
 	client_list_t	*client_list_node = malloc(sizeof(client_list_t));
 
 	client_list_node->client = client;
+	client->player.posx = tile->x;
+	client->player.posy = tile->y;
 	if (tile->clients_list == NULL) {
 		tile->clients_list = client_list_node;
 		tile->clients_list->next = NULL;
@@ -39,6 +41,8 @@ int	get_client_tile_size(tile_t *tile)
 {
 	int	count = 0;
 
+	if (tile->clients_list == NULL)
+		return (0);
 	for (client_t *tmp = tile->clients_list->client; tmp; tmp = tmp->next)
 		count += 1;
 	return (count);

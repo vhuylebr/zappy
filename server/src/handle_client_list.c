@@ -11,21 +11,21 @@
 
 void init_client(info_t *info, client_t *client)
 {
-	// int	posx = rand() % info->width;
-	// int	posy = rand() % info->height;
+	int	posx = rand() % info->width;
+	int	posy = rand() % info->height;
 
 	client->id = info->id;
 	client->is_gui = false;
 	client->is_set = false;
 	client->is_connected = true;
 	client->player.level = 1;
-	client->player.posx = 25;//posx;
-	client->player.posy = 25;//posy;
-	client->player.orientation = 1;//rand() % 4 + 1;
+	client->player.posx = posx;
+	client->player.posy = posy;
+	client->player.orientation = rand() % 4 + 1;
 	for (int i = 0; i < 7; i++)
 		client->ressources[i] = 0;
 	client->ressources[FOOD] = 10;
-	add_client_to_tile(get_tile(25, 25, info), info->clients);
+	add_client_to_tile(get_tile(posx, posy, info), info->clients);
 	info->id++;
 }
 
