@@ -166,6 +166,7 @@ void	del_elem_from_list(info_t *info, client_t *client);
 */
 
 void	init_map(info_t *info);
+void	display_inventory_tile(tile_t *tile, int fd);
 
 /*
 ** handle_team.c

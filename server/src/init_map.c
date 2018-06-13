@@ -6,15 +6,42 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "server.h"
 
-#include <stdio.h>
+static const char *tab_ressources[7] = {
+	"food",
+	"linemate",
+	"deraumere",
+	"sibur",
+	"mendiane",
+	"phiras",
+	"thystame"
+};
+
+void	display_inventory_tile(tile_t *tile, int fd)
+{
+	for (int i = 0; i < 7; ++i) {
+		if (tile->ressources[i]) {
+			for (int y = tile->ressources[i]; y > 0; --y)
+				dprintf(fd, " %s", tab_ressources[i]);
+		}
+	}
+	dprintf(fd, ",");
+}
 
 static tile_t	*init_tile(int x, int y)
 {
 	tile_t	*tile = malloc(sizeof(tile_t));
 	tile->x = x;
 	tile->y = y;
+	tile->ressources[FOOD] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[LINEMATE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[DERAUMERE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[SIBUR] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[MENDIANE] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[PHIRAS] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[THYSTAME] = (rand() % 5) == 0 ? (rand() % 3 + 1) : 0;
 	return (tile);
 }
 

@@ -10,7 +10,7 @@
 #include <strings.h>
 #include "server.h"
 
-cmd_t       ia_cmd[IA_CMD_SIZE] =
+cmd_t	ia_cmd[IA_CMD_SIZE] =
 {
 	{"Forward", &forward},
 	{"Right", &right},

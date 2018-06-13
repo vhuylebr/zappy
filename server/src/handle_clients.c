@@ -42,7 +42,7 @@ void	get_client(info_t *info)
 		add_client(info, client_fd);
 	else
 		exit(84);
-	dprintf(client_fd, "Welcome\n");
+	dprintf(client_fd, "WELCOME\n");
 }
 
 static void	launch_client(info_t *info)
