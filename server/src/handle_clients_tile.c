@@ -43,7 +43,7 @@ int	get_client_tile_size(tile_t *tile)
 
 	if (tile->clients_list == NULL)
 		return (0);
-	for (client_t *tmp = tile->clients_list->client; tmp; tmp = tmp->next)
+	for (client_list_t *tmp = tile->clients_list; tmp; tmp = tmp->next)
 		count += 1;
 	return (count);
 }
