@@ -18,7 +18,7 @@
 # define PHIRAS			5
 # define THYSTAME		6
 # define IA_CMD_SIZE	12
-# define GUI_CMD_SIZE	9
+# define GUI_CMD_SIZE	11
 # define PROBA_OBJ		7
 # include <sys/socket.h>
 # include <netinet/in.h>
@@ -67,6 +67,8 @@ typedef struct		client_s
 	int				ressources[7];
 	bool			is_connected;
 	bool			is_set;
+	bool			is_admin;
+	char			*user_name;
 	struct client_s	*next;
 	struct client_s	*prev;
 }					client_t;
@@ -189,6 +191,13 @@ void	team_name(info_t *, client_t *, char *);
 int		get_client_tile_size(tile_t *);
 void 	add_client_to_tile(tile_t *tile, client_t *client);
 void	del_client_from_tile(tile_t *tile, client_t *client);
+
+/*
+** handle_login.c
+*/
+
+void login(info_t *, client_t *, char **);
+void pass(info_t *, client_t *, char **);
 
 /*
 ** IA cmd

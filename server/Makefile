@@ -28,6 +28,7 @@ SRCS	=	src/main.c		\
 		src/init_map.c			\
 		src/handle_team.c	\
 		src/handle_clients_tile.c \
+		src/handle_login.c		\
 		cmd/broadcast.c			\
 		cmd/eject.c				\
 		cmd/fork.c 				\
