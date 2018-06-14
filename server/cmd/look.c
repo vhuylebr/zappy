@@ -21,6 +21,8 @@ static void oriented_north(info_t *info, client_t *client, int level)
 		}
 		for (int s = 0; s < (i * 2 + 1); s++) {
 			display_inventory_tile(tmp, client->fd);
+			if (i != level || (s + 1) < (i * 2 + 1))
+				dprintf(client->fd, ", ");
 			tmp = tmp->right;
 		}
 	}
@@ -39,6 +41,8 @@ static void oriented_east(info_t *info, client_t *client, int level)
 		}
 		for (int s = 0; s < (i * 2 + 1); s++) {
 			display_inventory_tile(tmp, client->fd);
+			if (i != level || (s + 1) < (i * 2 + 1))
+				dprintf(client->fd, ", ");
 			tmp = tmp->down;
 		}
 	}
@@ -57,6 +61,8 @@ static void oriented_south(info_t *info, client_t *client, int level)
 		}
 		for (int s = 0; s < (i * 2 + 1); s++) {
 			display_inventory_tile(tmp, client->fd);
+			if (i != level || (s + 1) < (i * 2 + 1))
+				dprintf(client->fd, ", ");
 			tmp = tmp->left;
 		}
 	}
@@ -75,6 +81,8 @@ static void oriented_west(info_t *info, client_t *client, int level)
 		}
 		for (int s = 0; s < (i * 2 + 1); s++) {
 			display_inventory_tile(tmp, client->fd);
+			if (i != level || (s + 1) < (i * 2 + 1))
+				dprintf(client->fd, ", ");
 			tmp = tmp->up;
 		}
 	}
@@ -85,9 +93,10 @@ void    look(info_t *info, client_t *client, char **cmd)
 	int level = client->player.level;
 
 	(void)cmd;
-	dprintf(client->fd, "[ player");
+	dprintf(client->fd, "[");
 	display_inventory_tile(get_tile(client->player.posx,
 		client->player.posy, info), client->fd);
+	dprintf(client->fd, ", ");
 	if (client->player.orientation == 1)
 		oriented_north(info, client, level);
 	else if (client->player.orientation == 2)

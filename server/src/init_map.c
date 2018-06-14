@@ -21,13 +21,16 @@ static const char *tab_ressources[7] = {
 
 void	display_inventory_tile(tile_t *tile, int fd)
 {
+	int	nb_player = get_client_tile_size(tile);
+
+	for (int i = 0; i < nb_player; i++)
+		dprintf(fd, "player ");
 	for (int i = 0; i < 7; ++i) {
 		if (tile->ressources[i]) {
 			for (int y = tile->ressources[i]; y > 0; --y)
-				dprintf(fd, " %s", tab_ressources[i]);
+				dprintf(fd, "%s ", tab_ressources[i]);
 		}
 	}
-	dprintf(fd, ",");
 }
 
 static tile_t	*init_tile(int x, int y)
