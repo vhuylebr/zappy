@@ -188,7 +188,7 @@ void	init_client(info_t *,client_t *);
 */
 
 void	init_map(info_t *info);
-void	display_inventory_tile(tile_t *tile, int fd);
+int	display_inventory_tile(tile_t *tile, int fd);
 
 /*
 ** handle_team.c

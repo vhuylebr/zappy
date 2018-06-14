@@ -19,18 +19,22 @@ static const char *tab_ressources[7] = {
 	"thystame"
 };
 
-void	display_inventory_tile(tile_t *tile, int fd)
+int	display_inventory_tile(tile_t *tile, int fd)
 {
 	int	nb_player = get_client_tile_size(tile);
+	int	empty = 0;
 
 	for (int i = 0; i < nb_player; i++)
 		dprintf(fd, "player ");
 	for (int i = 0; i < 7; ++i) {
 		if (tile->ressources[i]) {
-			for (int y = tile->ressources[i]; y > 0; --y)
+			for (int y = tile->ressources[i]; y > 0; --y) {
 				dprintf(fd, "%s ", tab_ressources[i]);
+				empty = 1;
+			}
 		}
 	}
+	return ((empty == 0 && nb_player == 0) ? 1 : 0);
 }
 
 static tile_t	*init_tile(int x, int y)
