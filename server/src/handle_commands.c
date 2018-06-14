@@ -36,7 +36,9 @@ cmd_t	gui_cmd[GUI_CMD_SIZE] =
 	{"plv", &plv},
 	{"pin", &pin},
 	{"sgt", &sgt},
-	{"sst", &sst}
+	{"sst", &sst},
+	{"login", &login},
+	{"pass", &pass}
 };
 
 static void gui_handling(info_t *info, client_t *client, char **cmd)
