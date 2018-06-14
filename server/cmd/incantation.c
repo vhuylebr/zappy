@@ -47,17 +47,6 @@ static void start_incantation(client_t *client, incantation_t condition)
     dprintf(client->fd, "Current level: %d\n", client->player.level);
 }
 
-void    test(client_t *client, int *nb)
-{
-    *nb = 3;
-    client->ressources[LINEMATE] = 3;
-    client->ressources[DERAUMERE] = 3;
-    client->ressources[SIBUR] = 3;
-    client->ressources[MENDIANE] = 3;
-    client->ressources[PHIRAS] = 3;
-    client->ressources[THYSTAME] = 3;
-}
-
 void    incantation(info_t *info, client_t *client, char **cmd)
 {
     incantation_t   condition = incantation_table[client->player.level - 1];

@@ -36,6 +36,8 @@ static void init_gui(client_t *client, char *name)
 	client->player.team = strdup(name);
 	client->player.posx = -1;
 	client->player.posx = -1;
+	client->is_connected = true;
+	client->is_set = false;
 }
 
 void	team_name(info_t *info, client_t *client, char *name)
@@ -44,6 +46,7 @@ void	team_name(info_t *info, client_t *client, char *name)
 
 	if (!strcmp("GUI", name)) {
 		init_gui(client, name);
+		display_begin(info, client, 0);
 		return ;
 	}
 	c_num = get_cli_num(info->clients, name, info->nb_cli);
