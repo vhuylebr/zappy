@@ -72,6 +72,7 @@ static void oriented_west(info_t *info, client_t *client, int level)
 {
 	tile_t  *pos = get_tile(client->player.posx, client->player.posy, info);
 	tile_t  *tmp;
+	int		empty;
 
 	for (int i = 1; i <= level; i++) {
 		tmp = pos;
@@ -80,9 +81,12 @@ static void oriented_west(info_t *info, client_t *client, int level)
 			tmp = tmp->down;
 		}
 		for (int s = 0; s < (i * 2 + 1); s++) {
-			display_inventory_tile(tmp, client->fd);
-			if (i != level || (s + 1) < (i * 2 + 1))
-				dprintf(client->fd, ", ");
+			empty = display_inventory_tile(tmp, client->fd);
+			if (i != level || (s + 1) < (i * 2 + 1)) {
+				dprintf(client->fd, ",");
+				if (empty != 1)
+					dprintf(client->fd, " ");
+			}
 			tmp = tmp->up;
 		}
 	}
