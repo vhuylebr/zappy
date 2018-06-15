@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "server.h"
 
 void init_client(info_t *info, client_t *client)
@@ -27,6 +28,10 @@ void init_client(info_t *info, client_t *client)
 	client->ressources[FOOD] = 10;
 	add_client_to_tile(get_tile(posx, posy, info), info->clients);
 	info->id++;
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		dprintf(tmp->gui->fd ,"np %i %i %i\n", client->id, client->player.posx,
+			client->player.posy);
+	}
 }
 
 void add_client(info_t *info, int fd)
@@ -57,5 +62,5 @@ void	del_elem_from_list(info_t *info, client_t *client)
 	} else {
 		client->prev->next = client->next;
 	}
-	free(client);
+	// free(client);
 }

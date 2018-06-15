@@ -35,6 +35,11 @@ typedef enum {
 	LEFT
 } orientation;
 
+typedef	struct	coord_s {
+	int	x;
+	int	y;
+}		coord_t;
+
 typedef struct	server_s
 {
 	struct	protoent	*pe;
@@ -79,6 +84,13 @@ typedef	struct				client_list_s
 	struct client_list_s	*next;
 }							client_list_t;
 
+
+typedef	struct				gui_list_s
+{
+	client_t				*gui;
+	struct gui_list_s		*next;
+}							gui_list_t;
+
 typedef struct		tile_s
 {
 	int				x;
@@ -108,6 +120,7 @@ typedef struct	info_s
 	team_t		**team;
 	fd_set		readfds;
 	client_t	*clients;
+	gui_list_t	*gui;
 	tile_t		*map;
 	server_t	server;
 }				info_t;
@@ -216,6 +229,13 @@ void	del_client_from_tile(tile_t *tile, client_t *client);
 
 void login(info_t *, client_t *, char **);
 void pass(info_t *, client_t *, char **);
+
+/*
+** handle_gui_list.c
+*/
+
+void	add_client_gui(info_t *, client_t *);
+void	remove_client_gui(info_t *, client_t *);
 
 /*
 ** IA cmd

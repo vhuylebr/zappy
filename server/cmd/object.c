@@ -9,7 +9,8 @@
 #include <strings.h>
 #include "server.h"
 
-static void player_took_object(tile_t *tile, client_t *client, int type)
+static void player_took_object(info_t *info, tile_t *tile, client_t *client,
+	int type)
 {
 	if (tile->ressources[type] <= 0) {
 		dprintf(client->fd, "ko\n");
@@ -18,6 +19,9 @@ static void player_took_object(tile_t *tile, client_t *client, int type)
 	tile->ressources[type] -= 1;
 	client->ressources[type] += 1;
 	dprintf(client->fd, "ok\n");
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		dprintf(tmp->gui->fd ,"pto %i %i\n", client->id, type);
+	}
 }
 
 void    take(info_t *info, client_t *client, char **cmd)
@@ -31,7 +35,7 @@ void    take(info_t *info, client_t *client, char **cmd)
 	}
 	for (int i = 0; i < 7; i++) {
 		if (!strcasecmp(stuff[i], cmd[1])) {
-			player_took_object(get_tile(client->player.posx,
+			player_took_object(info, get_tile(client->player.posx,
 										client->player.posy, info), client, i);
 			return ;
 		}
@@ -39,7 +43,8 @@ void    take(info_t *info, client_t *client, char **cmd)
 	dprintf(client->fd, "ko\n");
 }
 
-static void player_set_object(tile_t *tile, client_t *client, int type)
+static void player_set_object(info_t *info, tile_t *tile, client_t *client,
+	int type)
 {
 	if (client->ressources[type] <= 0) {
 		dprintf(client->fd, "ko\n");
@@ -48,9 +53,12 @@ static void player_set_object(tile_t *tile, client_t *client, int type)
 	tile->ressources[type] += 1;
 	client->ressources[type] -= 1;
 	dprintf(client->fd, "ok\n");
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		dprintf(tmp->gui->fd ,"pso %i %i\n", client->id, type);
+	}
 }
 
-void    set(info_t *info, client_t *client, char **cmd)
+void	set(info_t *info, client_t *client, char **cmd)
 {
 	char    *stuff[7] = {"food", "linemate", "deraumere", "sibur",
 							"mendiane", "phiras", "thystame"};
@@ -61,7 +69,7 @@ void    set(info_t *info, client_t *client, char **cmd)
 	}
 	for (int i = 0; i < 7; i++) {
 		if (!strcasecmp(stuff[i], cmd[1])) {
-			player_set_object(get_tile(client->player.posx,
+			player_set_object(info, get_tile(client->player.posx,
 										client->player.posy, info), client, i);
 			return ;
 		}

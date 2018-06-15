@@ -49,7 +49,7 @@ void	team_name(info_t *info, client_t *client, char *name)
 
 	if (!strcmp("GUI", name)) {
 		init_gui(client, name);
-		display_begin(info, client, 0);
+		add_client_gui(info, client);
 		return ;
 	}
 	if (handle_reuse(info, client, team, name) == 1) {

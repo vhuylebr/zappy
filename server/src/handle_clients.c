@@ -20,9 +20,13 @@ static int	handle_client(info_t *info, client_t *client)
 
 	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
 		close(client->fd);
-		team = get_team(info->team, client->player.team);
-		team->nb_cli += 1;
-		client->is_connected = false;
+		if (client->is_gui)
+			remove_client_gui(info, client);
+		else {
+			team = get_team(info->team, client->player.team);
+			team->nb_cli += 1;
+			client->is_connected = false;
+		}
 		return (0);
 	}
 	cmds = my_str_to_wordtab(buff, ' ');
@@ -77,7 +81,8 @@ int handle_clients(info_t *info)
 			perror("");
 			exit(84);
 		}
-	else
+	else {
 		launch_client(info);
+	}
 	return (0);
 }

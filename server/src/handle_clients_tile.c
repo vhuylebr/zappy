@@ -28,12 +28,17 @@ void	del_client_from_tile(tile_t *tile, client_t *client)
 {
 	client_list_t	*tmp = NULL;
 
-	if (tile->clients_list->client == client) {
+	if (!tile->clients_list) {
+		return;
+	} else if (tile->clients_list->client == client) {
+		tmp = tile->clients_list;
 		tile->clients_list = tile->clients_list->next;
+		free(tmp);
 	} else {
-		for (tmp = tile->clients_list; tmp->next->client != client;
+		for (tmp = tile->clients_list; tmp->next && tmp->next->client != client;
 			tmp = tmp->next);
-		tmp->next = tmp->next->next;
+		if (tmp->next)
+			tmp->next = tmp->next->next;
 	}
 }
 
