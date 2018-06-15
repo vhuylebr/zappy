@@ -35,6 +35,7 @@ int	flag_n(char **av, int i, info_t *info)
 		return (-1);
 	s = 0;
 	for (i = i + 1; av[i] && av[i][0] != '-'; i++) {
+		info->team[s] = malloc(sizeof(team_t));
 		info->team[s]->name = av[i];
 		s += 1;
 	}
