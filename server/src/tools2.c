@@ -15,7 +15,7 @@ team_t *get_team(team_t **team, char *name)
 		if (!strcmp(team[i]->name, name))
 			return (team[i]);
 	}
-	return (0);
+	return (NULL);
 }
 
 tile_t  *get_tile(int x, int y, info_t *info)

@@ -23,8 +23,10 @@ static int	handle_client(info_t *info, client_t *client)
 		if (client->is_gui)
 			remove_client_gui(info, client);
 		else {
-			team = get_team(info->team, client->player.team);
-			team->nb_cli += 1;
+			if (client->player.team != NULL) {
+				team = get_team(info->team, client->player.team);
+				team->nb_cli += 1;
+			}
 			client->is_connected = false;
 		}
 		return (0);
