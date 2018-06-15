@@ -91,6 +91,12 @@ typedef struct		tile_s
 	client_list_t	*clients_list;
 }					tile_t;
 
+typedef struct	team_s
+{
+	int		nb_cli;
+	char	*name;
+}				team_t;
+
 typedef struct	info_s
 {
 	int			port;
@@ -99,7 +105,7 @@ typedef struct	info_s
 	int			id;
 	int			nb_cli;
 	int			freq;
-	char		**name;
+	team_t		**team;
 	fd_set		readfds;
 	client_t	*clients;
 	tile_t		*map;
@@ -130,7 +136,7 @@ typedef struct 	incantation_s
 	int	thystame;
 }				incantation_t;
 
-int		get_cli_num(client_t *, char *, int);
+team_t	*get_team(team_t **, char *);
 tile_t	*get_tile(int, int, info_t *);
 void	print_ressources(int[7], int);
 int	flag_cmd(char **, int, int *);

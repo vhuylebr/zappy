@@ -43,8 +43,8 @@ void    mct(info_t *info, client_t *client, char **cmd)
 void    tna(info_t *info, client_t *client, char **cmd)
 {
 	(void)cmd;
-	for (int i = 0; info->name[i]; i++)
-		dprintf(client->fd, "%s\n", info->name[i]);
+	for (int i = 0; info->team[i]; i++)
+		dprintf(client->fd, "%s\n", info->team[i]->name);
 }
 
 void    ppo(info_t *info, client_t *client, char **cmd)

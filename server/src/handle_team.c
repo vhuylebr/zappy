@@ -15,15 +15,18 @@ static void display_begin(info_t *info, client_t *client, int c_num)
 		info->width, info->height);
 }
 
-static int handle_reuse(info_t *info, client_t *client, int c_num, char *name)
+static int handle_reuse(info_t *info, client_t *client, team_t *t, char *name)
 {
+	if (t == NULL)
+		return (1);
 	for (client_t *tmp = info->clients; tmp; tmp = tmp->next) {
 		if (tmp->player.team && !strcmp(tmp->player.team, name)
 			&& tmp->is_connected == false) {
 				tmp->fd = client->fd;
 				tmp->is_connected = true;
 				del_elem_from_list(info, client);
-				display_begin(info, tmp, c_num);
+				display_begin(info, tmp, t->nb_cli);
+				t->nb_cli -= 1;
 				return (0);
 		}
 	}
@@ -42,27 +45,21 @@ static void init_gui(client_t *client, char *name)
 
 void	team_name(info_t *info, client_t *client, char *name)
 {
-	int	c_num;
+	team_t	*team = get_team(info->team, name);
 
 	if (!strcmp("GUI", name)) {
 		init_gui(client, name);
 		display_begin(info, client, 0);
 		return ;
 	}
-	c_num = get_cli_num(info->clients, name, info->nb_cli);
-	if (c_num <= 0) {
-		dprintf(client->fd, "ko\n");
-		return;
-	}
-	if (handle_reuse(info, client, c_num, name) == 1) {
-		for (int i = 0; info->name[i]; i++) {
-			if (!strcmp(info->name[i], name)) {
-				client->player.team = strdup(name);
-				init_client(info, client);
-				display_begin(info, client, c_num);
-				return ;
-			}
+	if (handle_reuse(info, client, team, name) == 1) {
+		if (team == NULL || team->nb_cli <= 0) {
+			dprintf(client->fd, "ko\n");
+			return ;
 		}
-		dprintf(client->fd, "ko\n");
+		client->player.team = strdup(name);
+		init_client(info, client);
+		display_begin(info, client, team->nb_cli);
+		team->nb_cli -= 1;
 	}
 }

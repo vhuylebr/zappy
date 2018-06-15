@@ -30,15 +30,15 @@ int	flag_n(char **av, int i, info_t *info)
 				return (-1);
 		}
 	}
-	info->name = malloc(sizeof(char *) * (s + 1));
-	if (info->name == NULL)
+	info->team = malloc(sizeof(team_t *) * (s + 1));
+	if (info->team == NULL)
 		return (-1);
 	s = 0;
 	for (i = i + 1; av[i] && av[i][0] != '-'; i++) {
-		info->name[s] = av[i];
+		info->team[s]->name = av[i];
 		s += 1;
 	}
-	info->name[s] = NULL;
+	info->team[s] = NULL;
 	return (i - 1);
 }
 
@@ -48,7 +48,7 @@ static void	init_value(info_t *info)
 	info->width = 50;
 	info->height = 50;
 	info->nb_cli = 4;
-	info->name = NULL;
+	info->team = NULL;
 	info->freq = 100;
 }
 

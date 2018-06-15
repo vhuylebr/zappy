@@ -16,9 +16,12 @@ static int	handle_client(info_t *info, client_t *client)
 {
 	char	**cmds = NULL;
 	char	*buff = NULL;
+	team_t	*team;
 
 	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
 		close(client->fd);
+		team = get_team(info->team, client->player.team);
+		team->nb_cli += 1;
 		client->is_connected = false;
 		return (0);
 	}

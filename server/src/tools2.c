@@ -9,14 +9,13 @@
 #include <string.h>
 #include "server.h"
 
-int get_cli_num(client_t *cli, char *team, int nb_max)
+team_t *get_team(team_t **team, char *name)
 {
-	for (client_t *tmp = cli; tmp; tmp = tmp->next) {
-		if (tmp->player.team && !strcmp(tmp->player.team, team)
-			&& tmp->is_connected)
-			nb_max -= 1;
+	for (int i = 0; team[i]; i++) {
+		if (!strcmp(team[i]->name, name))
+			return (team[i]);
 	}
-	return (nb_max);
+	return (0);
 }
 
 tile_t  *get_tile(int x, int y, info_t *info)

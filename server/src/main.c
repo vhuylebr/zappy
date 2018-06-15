@@ -44,8 +44,10 @@ int	main(int ac, char **av)
 		return (display_help());
 	else if (info == NULL || fill_info(ac, av, info) == 84)
 		return (84);
-	else if (info->name == NULL)
+	else if (info->team == NULL)
 		return (my_perror(MISS_FLAG, 84));
+	for (int i = 0; info->team[i]; i++)
+		info->team[i]->nb_cli = info->nb_cli;
 	srand(time(NULL));
 	init_serveur(info->port, &info->server);
 	init_map(info);
