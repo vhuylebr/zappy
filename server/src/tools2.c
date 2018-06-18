@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "server.h"
 
 team_t *get_team(team_t **team, char *name)
@@ -27,4 +28,13 @@ tile_t  *get_tile(int x, int y, info_t *info)
 	for (int i = 0; i < y; i++)
 		tmp = tmp->down;
 	return (tmp);
+}
+
+void	remove_buff(char *buff[10])
+{
+	char	*first = buff[0];
+
+	for (int i = 0; buff[i] && i < 10; i++)
+		buff[i] = buff[i + 1];
+	free(first);
 }

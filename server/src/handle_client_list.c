@@ -23,8 +23,11 @@ void init_client(info_t *info, client_t *client)
 	client->player.posx = posx;
 	client->player.posy = posy;
 	client->player.orientation = rand() % 4 + 1;
+	client->wait_time = -1;
 	for (int i = 0; i < 7; i++)
 		client->ressources[i] = 0;
+	for (int i = 0; i < 10; i++)
+		client->buff[i] = NULL;
 	client->ressources[FOOD] = 10;
 	add_client_to_tile(get_tile(posx, posy, info), info->clients);
 	info->id++;

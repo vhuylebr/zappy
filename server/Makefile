@@ -33,8 +33,6 @@ SRCS	=	src/main.c		\
 		cmd/broadcast.c			\
 		cmd/eject.c				\
 		cmd/fork.c 				\
-		cmd/gui_cmd.c 			\
-		cmd/gui_cmd2.c 			\
 		cmd/incantation.c		\
 		cmd/look.c 				\
 		cmd/movement.c 			\

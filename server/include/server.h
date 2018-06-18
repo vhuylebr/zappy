@@ -27,6 +27,8 @@
 # include <time.h>
 # include <stdbool.h>
 
+typedef struct info_s info_t;
+
 typedef enum {
 	NONE,
 	UP,
@@ -57,8 +59,6 @@ typedef struct	player_s
 	int 		hp;
 	char		*team;
 	orientation	orientation;
-	time_t		action;
-	time_t		next_eat;
 }				player_t;
 
 typedef struct		client_s
@@ -73,6 +73,9 @@ typedef struct		client_s
 	bool			is_connected;
 	bool			is_set;
 	bool			is_admin;
+	time_t			time;
+	void			(*func)(info_t *, struct client_s *, char **);
+	int				wait_time;
 	char			*user_name;
 	struct client_s	*next;
 	struct client_s	*prev;
@@ -109,7 +112,7 @@ typedef struct	team_s
 	char	*name;
 }				team_t;
 
-typedef struct	info_s
+struct	info_s
 {
 	int			port;
 	int			width;
@@ -123,7 +126,7 @@ typedef struct	info_s
 	gui_list_t	*gui;
 	tile_t		*map;
 	server_t	server;
-}				info_t;
+};
 
 typedef struct	flag_s
 {
@@ -135,6 +138,7 @@ typedef struct	cmd_s
 {
 	char	*cmd;
 	void	(*func)(info_t *, client_t *, char **);
+	int		freq;
 }				cmd_t;
 
 typedef struct 	incantation_s
@@ -186,12 +190,13 @@ void	free_tab(char **tab);
 ** handle_commands.c
 */
 
-int		check_function(info_t *info, client_t *client, char **cmds);
+void	check_function(info_t *, client_t *);
 
 /*
 ** tools.c
 */
 
+void	remove_buff(char *buff[10]);
 int	get_max_fd(client_t *clients);
 
 /*

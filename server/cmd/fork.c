@@ -9,5 +9,5 @@
 
 void    fork_player(info_t *info, client_t *client, char **cmd)
 {
-    (void)info;(void)client;(void)cmd;
+    (void)info; (void)client;(void)cmd;
 }

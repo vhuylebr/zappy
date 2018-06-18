@@ -12,9 +12,18 @@
 #include "server.h"
 #include "get_next_line.h"
 
+static void	add_cmd_to_buff(char *buff[10], char *cmd)
+{
+	int	i;
+
+	for (i = 0; buff[i] && i < 10; i++);
+	if (i >= 10)
+		return;
+	buff[i] = strdup(cmd);
+}
+
 static int	handle_client(info_t *info, client_t *client)
 {
-	char	**cmds = NULL;
 	char	*buff = NULL;
 	team_t	*team;
 
@@ -31,15 +40,12 @@ static int	handle_client(info_t *info, client_t *client)
 		}
 		return (0);
 	}
-	cmds = my_str_to_wordtab(buff, ' ');
-	if (cmds == NULL || !cmds[0])
-		return (-1);
 	if (client->player.team != NULL)
-		check_function(info, client, cmds);
+		add_cmd_to_buff(client->buff, buff);
 	else
-		team_name(info, client, cmds[0]);
-	free_tab(cmds);
-	return(0);
+		team_name(info, client, buff);
+	free(buff);
+	return (0);
 }
 
 void	get_client(info_t *info)
@@ -60,6 +66,7 @@ static void	launch_client(info_t *info)
 		get_client(info);
 	for (client_t *tmp = info->clients; tmp;
 		tmp = tmp->next) {
+		check_function(info, tmp);
 		if (tmp->is_set && FD_ISSET(tmp->fd, &info->readfds)) {
 			handle_client(info, tmp);
 			tmp->is_set = false;
