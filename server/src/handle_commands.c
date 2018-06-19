@@ -67,7 +67,8 @@ static void	wait_for_exec(info_t *info, client_t *client)
 
 void	check_function(info_t *info, client_t *client)
 {
-	if (client->is_gui == true)
+	if (client->is_gui == true || client->buff[0] == NULL
+	|| client->player.team == NULL)
 		return ;
 	if (client->wait_time == -1)
 		handle_new_cmd(client);

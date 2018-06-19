@@ -68,6 +68,7 @@ static void	launch_client(info_t *info)
 		tmp = tmp->next) {
 		check_function(info, tmp);
 		if (tmp->is_set && FD_ISSET(tmp->fd, &info->readfds)) {
+			dprintf(tmp->fd, "Je suis dans la condition\n");
 			handle_client(info, tmp);
 			tmp->is_set = false;
 		}
