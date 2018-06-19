@@ -27,7 +27,7 @@ static int	handle_client(info_t *info, client_t *client)
 	char	*buff = NULL;
 	team_t	*team;
 
-	if (get_next_line(client->fd, &buff) == 0 || buff == NULL) {
+	if (get_next_line(client->fd, &buff) <= 0 || buff == NULL) {
 		close(client->fd);
 		if (client->is_gui)
 			remove_client_gui(info, client);
@@ -40,7 +40,9 @@ static int	handle_client(info_t *info, client_t *client)
 		}
 		return (0);
 	}
-	if (client->player.team != NULL)
+	if (strlen(buff) == 0)
+		return (-1);
+	else if (client->player.team != NULL)
 		add_cmd_to_buff(client->buff, buff);
 	else
 		team_name(info, client, buff);
@@ -68,7 +70,6 @@ static void	launch_client(info_t *info)
 		tmp = tmp->next) {
 		check_function(info, tmp);
 		if (tmp->is_set && FD_ISSET(tmp->fd, &info->readfds)) {
-			dprintf(tmp->fd, "Je suis dans la condition\n");
 			handle_client(info, tmp);
 			tmp->is_set = false;
 		}
@@ -77,6 +78,8 @@ static void	launch_client(info_t *info)
 
 int handle_clients(info_t *info)
 {
+	struct timeval	tv = {1 / info->freq, 0};
+
 	FD_ZERO(&info->readfds);
 	FD_SET(3, &info->readfds);
 	for (client_t *tmp = info->clients;
@@ -87,7 +90,7 @@ int handle_clients(info_t *info)
 			}
 		}
 	if (select(get_max_fd(info->clients),
-		&info->readfds, NULL, NULL, NULL) == -1) {
+		&info->readfds, NULL, NULL, &tv) == -1) {
 			perror("");
 			exit(84);
 		}
