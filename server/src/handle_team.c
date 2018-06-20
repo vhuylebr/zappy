@@ -38,7 +38,7 @@ static void init_gui(client_t *client, char *name)
 	client->is_gui = true;
 	client->player.team = strdup(name);
 	client->player.posx = -1;
-	client->player.posx = -1;
+	client->player.posy = -1;
 	client->is_connected = true;
 	client->is_set = false;
 }

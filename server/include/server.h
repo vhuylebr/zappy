@@ -74,6 +74,7 @@ typedef struct		client_s
 	bool			is_set;
 	bool			is_admin;
 	time_t			time;
+	time_t			food_time;
 	void			(*func)(info_t *, struct client_s *, char **);
 	int				wait_time;
 	char			*user_name;

@@ -52,6 +52,7 @@ void add_client(info_t *info, int fd)
 		info->clients->buff[i] = NULL;
 	info->clients->fd = fd;
 	info->clients->wait_time = -1;
+	info->clients->food_time = time(NULL);
 	info->clients->is_connected = true;
 	info->clients->is_gui = false;
 	info->clients->is_set = false;
