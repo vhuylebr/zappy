@@ -70,17 +70,17 @@ static void	player_die(info_t *info, client_t *client)
 	(void)info; (void)client;
 }
 
-static void	food_handling(info_t *info, client_t *client)
+static int	food_handling(info_t *info, client_t *client)
 {
 	time_t now = time(NULL);
 
 	if (now - client->food_time >= 126 / info->freq) {
-		if (client->ressources[FOOD] <= 0)
+		if (client->ressources[FOOD] <= 0) {
 			player_die(info, client);
-		else {
-			client->ressources[FOOD] -= 1;
-			client->food_time = now;
+			return (-1);
 		}
+		client->ressources[FOOD] -= 1;
+		client->food_time = now;
 	}
 }
 
@@ -88,7 +88,8 @@ void	check_function(info_t *info, client_t *client)
 {
 	if (client->is_gui == true || client->player.team == NULL)
 		return ;
-	food_handling(info, client);
+	if (food_handling(info, client) == -1)
+		return ;
 	if (client->wait_time == -1 && client->buff[0])
 		handle_new_cmd(client);
 	else if (client->wait_time != -1)
