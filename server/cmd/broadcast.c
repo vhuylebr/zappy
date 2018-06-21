@@ -73,7 +73,7 @@ void	broadcast(info_t *info, client_t *client, char **cmd)
 
 void    connect_nbr(info_t *info, client_t *client, char **cmd)
 {
-    (void)cmd;
-    dprintf(client->fd, "%d\n",
-            get_team(info->team, client->player.team)->nb_cli);
+	(void)cmd;
+	dprintf(client->fd, "%d\n",
+			get_team(info->team, client->player.team)->nb_cli);
 }

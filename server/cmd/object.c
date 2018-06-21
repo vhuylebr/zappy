@@ -20,7 +20,9 @@ static void player_took_object(info_t *info, tile_t *tile, client_t *client,
 	client->ressources[type] += 1;
 	dprintf(client->fd, "ok\n");
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
-		dprintf(tmp->gui->fd ,"pto %i %i\n", client->id, type);
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"pto  %i %i %i %i\n",  client->id,
+				client->player.posx, client->player.posy, type);
 	}
 }
 
@@ -54,7 +56,9 @@ static void player_set_object(info_t *info, tile_t *tile, client_t *client,
 	client->ressources[type] -= 1;
 	dprintf(client->fd, "ok\n");
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
-		dprintf(tmp->gui->fd ,"pso %i %i\n", client->id, type);
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"pso %i %i %i %i\n",  client->id,
+				client->player.posx, client->player.posy, type);
 	}
 }
 

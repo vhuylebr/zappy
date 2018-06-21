@@ -23,8 +23,9 @@ void    forward(info_t *info, client_t *client, char **cmd)
 		add_client_to_tile(pos->left, client);
 	del_client_from_tile(pos, client);
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
-		dprintf(tmp->gui->fd ,"mop %i %i %i\n", client->id, client->player.posx,
-			client->player.posy);
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"mop %i %i %i %i\n", client->id,
+			client->player.posx, client->player.posy, client->player.orientation);
 	}
 	dprintf(client->fd, "ok\n");
 }
@@ -37,6 +38,11 @@ void    right(info_t *info, client_t *client, char **cmd)
 	if (client->player.orientation >= 5)
 		client->player.orientation = 1;
 	dprintf(client->fd, "ok\n");
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"mop %i %i %i %i\n", client->id, client->player.posx,
+				client->player.posy, client->player.orientation);
+	}
 }
 
 void    left(info_t *info, client_t *client, char **cmd)
@@ -47,6 +53,12 @@ void    left(info_t *info, client_t *client, char **cmd)
 	if (client->player.orientation <= 0)
 		client->player.orientation = 4;
 	dprintf(client->fd, "ok\n");
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"mop %i %i %i %i\n", client->id,
+				client->player.posx, client->player.posy,
+					client->player.orientation);
+	}
 }
 
 void    inventory(info_t *info, client_t *client, char **cmd)

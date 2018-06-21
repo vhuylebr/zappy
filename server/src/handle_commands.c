@@ -67,7 +67,14 @@ static void	wait_for_exec(info_t *info, client_t *client)
 
 static void	player_die(info_t *info, client_t *client)
 {
-	(void)info; (void)client;
+	del_elem_from_list(info, client);
+	dprintf(client->fd, "dead\n");
+	close(client->fd);
+	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"dp %i\n",
+				client->id);
+	}
 }
 
 static int	food_handling(info_t *info, client_t *client)
@@ -82,6 +89,7 @@ static int	food_handling(info_t *info, client_t *client)
 		client->ressources[FOOD] -= 1;
 		client->food_time = now;
 	}
+	return (0);
 }
 
 void	check_function(info_t *info, client_t *client)

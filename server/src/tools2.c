@@ -34,7 +34,8 @@ void	remove_buff(char *buff[10])
 {
 	char	*first = buff[0];
 
-	for (int i = 0; buff[i] && i < 10; i++)
+	for (int i = 0; buff[i] && i < 9; i++)
 		buff[i] = buff[i + 1];
+	buff[9] = NULL;
 	free(first);
 }

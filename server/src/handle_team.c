@@ -41,6 +41,8 @@ static void init_gui(client_t *client, char *name)
 	client->player.posy = -1;
 	client->is_connected = true;
 	client->is_set = false;
+	client->is_admin = false;
+	client->is_log = false;
 }
 
 void	team_name(info_t *info, client_t *client, char *name)

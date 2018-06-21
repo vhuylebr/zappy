@@ -46,7 +46,9 @@ static void start_incantation(info_t *info, client_t *client, incantation_t cond
 	client->player.level += 1;
 	dprintf(client->fd, "Current level: %d\n", client->player.level);
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
-		dprintf(tmp->gui->fd ,"plu %i %i\n", client->id, client->player.level);
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"plu %i %i\n",
+				client->id, client->player.level);
 	}
 }
 

@@ -29,8 +29,13 @@ void init_client(info_t *info, client_t *client)
 	add_client_to_tile(get_tile(posx, posy, info), info->clients);
 	info->id++;
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
-		dprintf(tmp->gui->fd ,"np %i %i %i\n", client->id, client->player.posx,
-			client->player.posy);
+		if (tmp->gui->is_log)
+			dprintf(tmp->gui->fd ,"np %i %i %i %i %i %i %i %i %i %i %s\n",
+				client->id, client->player.posx, client->player.posy,
+				client->ressources[0], client->ressources[1],
+				client->ressources[2], client->ressources[3],
+				client->ressources[4], client->ressources[5],
+				client->ressources[6], client->player.team);
 	}
 }
 

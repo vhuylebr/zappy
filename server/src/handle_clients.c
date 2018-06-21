@@ -12,14 +12,34 @@
 #include "server.h"
 #include "get_next_line.h"
 
+cmd_t	gui_cmd[GUI_CMD_SIZE] =
+{	
+	{"login", &login, 0},
+	{"pass", &pass, 0}
+};
+
 static void	add_cmd_to_buff(char *buff[10], char *cmd)
 {
 	int	i;
 
-	for (i = 0; buff[i] && i < 10; i++);
-	if (i >= 10)
+	for (i = 0; i < 10 && buff[i]; i++);
+	if (i > 9)
 		return;
 	buff[i] = strdup(cmd);
+}
+
+static void gui_handling(info_t *info, client_t *client, char **cmd)
+{
+	int find = 0;
+
+	for (int i = 0; i < GUI_CMD_SIZE; i++) {
+		if (!strcasecmp(gui_cmd[i].cmd, cmd[0])) {
+			gui_cmd[i].func(info, client, cmd);
+			find = 1;
+		}
+	}
+	if (find == 0)
+		dprintf(client->fd, "ko\n");
 }
 
 static int	handle_client(info_t *info, client_t *client)
@@ -40,8 +60,8 @@ static int	handle_client(info_t *info, client_t *client)
 		}
 		return (0);
 	}
-	if (strlen(buff) == 0)
-		return (-1);
+	if (client->is_gui)
+		gui_handling(info, client, my_str_to_wordtab(buff, ' '));
 	else if (client->player.team != NULL)
 		add_cmd_to_buff(client->buff, buff);
 	else
@@ -93,8 +113,7 @@ int handle_clients(info_t *info)
 		&info->readfds, NULL, NULL, &tv) == -1) {
 			perror("");
 			exit(84);
-		}
-	else {
+	} else {
 		launch_client(info);
 	}
 	return (0);
