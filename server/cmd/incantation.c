@@ -19,30 +19,31 @@ incantation_t   incantation_table[7] =
 	{7, 6, 2, 2, 2, 2, 2, 1}
 };
 
-static int  verif_ressources(incantation_t condition, client_t *client)
+static int  verif_ressources(incantation_t condition, tile_t *tile, client_t *c)
 {
 	int ressources[7] = {-1, condition.linemate, condition.deraumere,
 						condition.sibur, condition.mendiane, condition.phiras,
 						condition.thystame};
 
 	for (int i = 1; i < 7; i++) {
-		if (client->ressources[i] < ressources[i]) {
-			dprintf(client->fd, "ko\n");
+		if (tile->ressources[i] < ressources[i]) {
+			dprintf(c->fd, "ko\n");
 			return (-1);
 		}
 	}
 	return (0);
 }
 
-static void start_incantation(info_t *info, client_t *client, incantation_t condition)
+static void start_incantation(info_t *info, tile_t *tile,
+								incantation_t condition, client_t *client)
 {
 	dprintf(client->fd, "Elevation underway\n");
-	client->ressources[LINEMATE] -= condition.linemate;
-	client->ressources[DERAUMERE] -= condition.deraumere;
-	client->ressources[SIBUR] -= condition.sibur;
-	client->ressources[MENDIANE] -= condition.mendiane;
-	client->ressources[PHIRAS] -= condition.phiras;
-	client->ressources[THYSTAME] -= condition.thystame;
+	tile->ressources[LINEMATE] -= condition.linemate;
+	tile->ressources[DERAUMERE] -= condition.deraumere;
+	tile->ressources[SIBUR] -= condition.sibur;
+	tile->ressources[MENDIANE] -= condition.mendiane;
+	tile->ressources[PHIRAS] -= condition.phiras;
+	tile->ressources[THYSTAME] -= condition.thystame;
 	client->player.level += 1;
 	dprintf(client->fd, "Current level: %d\n", client->player.level);
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
@@ -68,7 +69,7 @@ void    incantation(info_t *info, client_t *client, char **cmd)
 		dprintf(client->fd, "ko\n");
 		return ;
 	}
-	if (verif_ressources(condition, client) == -1)
+	if (verif_ressources(condition, player_pos, client) == -1)
 		return ;
-	start_incantation(info, client, condition);
+	start_incantation(info, player_pos, condition, client);
 }
