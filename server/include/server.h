@@ -18,7 +18,7 @@
 # define PHIRAS			5
 # define THYSTAME		6
 # define IA_CMD_SIZE	12
-# define GUI_CMD_SIZE	11
+# define GUI_CMD_SIZE	2
 # define PROBA_OBJ		7
 # include <sys/socket.h>
 # include <netinet/in.h>
@@ -66,12 +66,13 @@ typedef struct		client_s
 	int				id;
 	int				fd;
 	char			buf_idx;
-	char			*buff[10];
+	char			*buff[11];
 	player_t		player;
 	bool			is_gui;
 	int				ressources[7];
 	bool			is_connected;
 	bool			is_set;
+	bool			is_log;
 	bool			is_admin;
 	time_t			time;
 	time_t			food_time;
@@ -213,7 +214,7 @@ void	init_client(info_t *,client_t *);
 */
 
 void	init_map(info_t *info);
-int	display_inventory_tile(tile_t *tile, int fd);
+int		display_inventory_tile(tile_t *tile, int fd);
 
 /*
 ** handle_team.c
