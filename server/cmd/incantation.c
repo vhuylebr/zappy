@@ -34,16 +34,9 @@ static int  verif_ressources(incantation_t condition, tile_t *tile, client_t *c)
 	return (0);
 }
 
-static void start_incantation(info_t *info, tile_t *tile,
-								incantation_t condition, client_t *client)
+static void start_incantation(info_t *info, client_t *client)
 {
 	dprintf(client->fd, "Elevation underway\n");
-	tile->ressources[LINEMATE] -= condition.linemate;
-	tile->ressources[DERAUMERE] -= condition.deraumere;
-	tile->ressources[SIBUR] -= condition.sibur;
-	tile->ressources[MENDIANE] -= condition.mendiane;
-	tile->ressources[PHIRAS] -= condition.phiras;
-	tile->ressources[THYSTAME] -= condition.thystame;
 	client->player.level += 1;
 	dprintf(client->fd, "Current level: %d\n", client->player.level);
 	for (gui_list_t *tmp = info->gui; tmp; tmp = tmp->next) {
@@ -71,5 +64,5 @@ void    incantation(info_t *info, client_t *client, char **cmd)
 	}
 	if (verif_ressources(condition, player_pos, client) == -1)
 		return ;
-	start_incantation(info, player_pos, condition, client);
+	start_incantation(info, client);
 }

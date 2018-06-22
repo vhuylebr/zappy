@@ -30,6 +30,7 @@ SRCS	=	src/main.c		\
 		src/handle_clients_tile.c \
 		src/handle_login.c		\
 		src/handle_gui_list.c	\
+		src/ressource_spawn.c 	\
 		cmd/broadcast.c			\
 		cmd/eject.c				\
 		cmd/fork.c 				\

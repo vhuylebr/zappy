@@ -43,13 +43,13 @@ static tile_t	*init_tile(int x, int y)
 	tile->x = x;
 	tile->y = y;
 	tile->clients_list = NULL;
-	tile->ressources[FOOD] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[LINEMATE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[DERAUMERE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[SIBUR] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[MENDIANE] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[PHIRAS] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
-	tile->ressources[THYSTAME] = (rand() % PROBA_OBJ) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[FOOD] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[LINEMATE] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[DERAUMERE] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[SIBUR] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[MENDIANE] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[PHIRAS] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+	tile->ressources[THYSTAME] = (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
 	return (tile);
 }
 

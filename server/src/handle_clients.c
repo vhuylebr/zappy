@@ -70,18 +70,6 @@ static int	handle_client(info_t *info, client_t *client)
 	return (0);
 }
 
-void	get_client(info_t *info)
-{
-	int client_fd = accept(info->server.fd,
-		(struct sockaddr *)&info->server.s_in_client,
-			&info->server.s_in_size);
-	if (client_fd != -1)
-		add_client(info, client_fd);
-	else
-		exit(84);
-	dprintf(client_fd, "WELCOME\n");
-}
-
 static void	launch_client(info_t *info)
 {
 	if (FD_ISSET(3, &info->readfds))
@@ -108,7 +96,8 @@ int handle_clients(info_t *info)
 				FD_SET(tmp->fd, &info->readfds);
 				tmp->is_set = true;
 			}
-		}
+	}
+	ressource_spawn(info);
 	if (select(get_max_fd(info->clients),
 		&info->readfds, NULL, NULL, &tv) == -1) {
 			perror("");

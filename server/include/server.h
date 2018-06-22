@@ -19,7 +19,7 @@
 # define THYSTAME		6
 # define IA_CMD_SIZE	12
 # define GUI_CMD_SIZE	2
-# define PROBA_OBJ		7
+# define PROB			7
 # include <sys/socket.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
@@ -128,6 +128,7 @@ struct	info_s
 	gui_list_t	*gui;
 	tile_t		*map;
 	server_t	server;
+	time_t		ressource_spawn;
 };
 
 typedef struct	flag_s
@@ -229,6 +230,7 @@ void	team_name(info_t *, client_t *, char *);
 int		get_client_tile_size(tile_t *);
 void 	add_client_to_tile(tile_t *tile, client_t *client);
 void	del_client_from_tile(tile_t *tile, client_t *client);
+void	ressource_spawn(info_t *);
 
 /*
 ** handle_login.c

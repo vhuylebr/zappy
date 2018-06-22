@@ -51,6 +51,7 @@ static void	init_value(info_t *info)
 	info->nb_cli = 4;
 	info->team = NULL;
 	info->freq = 100;
+	info->ressource_spawn = time(NULL);
 }
 
 int	fill_info(int ac, char **av, info_t *info)
