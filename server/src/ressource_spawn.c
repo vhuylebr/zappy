@@ -32,13 +32,13 @@ void	ressource_spawn(info_t *info)
 	for (int y = 0; y < info->height; y++) {
 		for (int x = 0; x < info->width; x++) {
 			tmp = get_tile(x, y, info);
-			tmp->ressources[FOOD] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[LINEMATE] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[DERAUMERE] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[SIBUR] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[MENDIANE] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[PHIRAS] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
-			tmp->ressources[THYSTAME] += (rand() % PROB) == 0 ? (rand() % 3 + 1) : 0;
+			tmp->ressources[FOOD] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[LINEMATE] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[DERAUMERE] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[SIBUR] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[MENDIANE] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[PHIRAS] += (rand() % PROB) == 0 ? 1 : 0;
+			tmp->ressources[THYSTAME] += (rand() % PROB) == 0 ? 1 : 0;
 			tmp = tmp->right;
 		}
 		tmp = tmp->right;
