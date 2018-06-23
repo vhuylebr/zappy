@@ -25,7 +25,7 @@ static int  verif_ressources(incantation_t condition, tile_t *tile, client_t *c)
 						condition.sibur, condition.mendiane, condition.phiras,
 						condition.thystame};
 
-	for (int i = 1; i < 7; i++) {
+	for (int i = 0; i < 7; i++) {
 		if (tile->ressources[i] != ressources[i]) {
 			dprintf(c->fd, "ko\n");
 			return (-1);
