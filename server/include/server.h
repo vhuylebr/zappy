@@ -116,12 +116,14 @@ typedef struct	team_s
 
 struct	info_s
 {
+	int			is_end;
 	int			port;
 	int			width;
 	int			height;
 	int			id;
 	int			nb_cli;
 	int			freq;
+	int			is_end;
 	team_t		**team;
 	fd_set		readfds;
 	client_t	*clients;

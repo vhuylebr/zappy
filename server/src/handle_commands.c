@@ -88,6 +88,7 @@ static int	food_handling(info_t *info, client_t *client)
 			return (-1);
 		}
 		client->ressources[FOOD] -= 1;
+		dprintf(client->fd, "Je perds une food : %d\n", client->ressources[FOOD]);
 		client->food_time = now;
 	}
 	return (0);

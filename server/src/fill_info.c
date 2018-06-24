@@ -52,6 +52,7 @@ static void	init_value(info_t *info)
 	info->team = NULL;
 	info->freq = 100;
 	info->ressource_spawn = time(NULL);
+	info->is_end = 0;
 }
 
 int	fill_info(int ac, char **av, info_t *info)
