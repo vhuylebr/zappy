@@ -37,7 +37,7 @@ static int  verif_ressources(incantation_t condition, tile_t *tile, client_t *c)
 static void	game_is_end(char *name, info_t *info)
 {
 	info->is_end = 1;
-	for (client_t *tmp; tmp; tmp = tmp->next)
+	for (client_t *tmp = info->clients; tmp; tmp = tmp->next)
 		dprintf(tmp->fd, "Game is ended. Winner : %s\n", name);
 }
 
