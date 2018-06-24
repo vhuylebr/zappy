@@ -123,7 +123,6 @@ struct	info_s
 	int			id;
 	int			nb_cli;
 	int			freq;
-	int			is_end;
 	team_t		**team;
 	fd_set		readfds;
 	client_t	*clients;
