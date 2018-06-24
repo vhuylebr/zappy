@@ -83,6 +83,7 @@ static int	food_handling(info_t *info, client_t *client)
 
 	if (now - client->food_time >= 126 / info->freq) {
 		if (client->ressources[FOOD] <= 0) {
+			dprintf(client->fd, "dead\n");
 			player_die(info, client);
 			return (-1);
 		}
